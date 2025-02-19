@@ -1,0 +1,1021 @@
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 13:07:14 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 13:07:14 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:14 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 13:07:14 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_13-07-14_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 13:07:14 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:07:14 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:07:21 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:07:21 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:07:21 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:07:23 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:07:23 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:07:23 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 13:07:24 - ParserLogger - ERROR - [BonpetParser.py:57] - BonpetParser: Ошибка на этапе ввода запроса 'АВР-Б-100-2-1': Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x00440283+25139]
+	(No symbol) [0x003CB234]
+	(No symbol) [0x002A0300]
+	(No symbol) [0x002E2D39]
+	(No symbol) [0x002E1B2E]
+	(No symbol) [0x0030CF3C]
+	(No symbol) [0x002DD8E4]
+	(No symbol) [0x0030D1B4]
+	(No symbol) [0x0032E6E1]
+	(No symbol) [0x0030CD36]
+	(No symbol) [0x002DBD29]
+	(No symbol) [0x002DD064]
+	GetHandleVerifier [0x0074B143+3215603]
+	GetHandleVerifier [0x007622BA+3310186]
+	GetHandleVerifier [0x0075C4D2+3286146]
+	GetHandleVerifier [0x004D9C80+654384]
+	(No symbol) [0x003D45BD]
+	(No symbol) [0x003D14A8]
+	(No symbol) [0x003D1647]
+	(No symbol) [0x003C3D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+Traceback (most recent call last):
+  File "c:\Users\z0047uc2m\Desktop\GUI\src\parsers\BonpetParser.py", line 51, in _entering_request
+    search_input.send_keys(self.request)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 301, in send_keys
+    self._execute(
+    ~~~~~~~~~~~~~^
+        Command.SEND_KEYS_TO_ELEMENT, {"text": "".join(keys_to_typing(value)), "value": keys_to_typing(value)}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 570, in _execute
+    return self._parent.execute(command, params)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x00440283+25139]
+	(No symbol) [0x003CB234]
+	(No symbol) [0x002A0300]
+	(No symbol) [0x002E2D39]
+	(No symbol) [0x002E1B2E]
+	(No symbol) [0x0030CF3C]
+	(No symbol) [0x002DD8E4]
+	(No symbol) [0x0030D1B4]
+	(No symbol) [0x0032E6E1]
+	(No symbol) [0x0030CD36]
+	(No symbol) [0x002DBD29]
+	(No symbol) [0x002DD064]
+	GetHandleVerifier [0x0074B143+3215603]
+	GetHandleVerifier [0x007622BA+3310186]
+	GetHandleVerifier [0x0075C4D2+3286146]
+	GetHandleVerifier [0x004D9C80+654384]
+	(No symbol) [0x003D45BD]
+	(No symbol) [0x003D14A8]
+	(No symbol) [0x003D1647]
+	(No symbol) [0x003C3D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 13:07:24 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json, записано 0 записей
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:07:24 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:07:24 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:07:24 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:07:24 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:07:31 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:07:31 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:07:31 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 13:07:32 - ParserLogger - ERROR - [BonpetParser.py:57] - BonpetParser: Ошибка на этапе ввода запроса 'bababab': Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x010B0283+25139]
+	(No symbol) [0x0103B234]
+	(No symbol) [0x00F10300]
+	(No symbol) [0x00F52D39]
+	(No symbol) [0x00F51B2E]
+	(No symbol) [0x00F7CF3C]
+	(No symbol) [0x00F4D8E4]
+	(No symbol) [0x00F7D1B4]
+	(No symbol) [0x00F9E6E1]
+	(No symbol) [0x00F7CD36]
+	(No symbol) [0x00F4BD29]
+	(No symbol) [0x00F4D064]
+	GetHandleVerifier [0x013BB143+3215603]
+	GetHandleVerifier [0x013D22BA+3310186]
+	GetHandleVerifier [0x013CC4D2+3286146]
+	GetHandleVerifier [0x01149C80+654384]
+	(No symbol) [0x010445BD]
+	(No symbol) [0x010414A8]
+	(No symbol) [0x01041647]
+	(No symbol) [0x01033D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+Traceback (most recent call last):
+  File "c:\Users\z0047uc2m\Desktop\GUI\src\parsers\BonpetParser.py", line 51, in _entering_request
+    search_input.send_keys(self.request)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 301, in send_keys
+    self._execute(
+    ~~~~~~~~~~~~~^
+        Command.SEND_KEYS_TO_ELEMENT, {"text": "".join(keys_to_typing(value)), "value": keys_to_typing(value)}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 570, in _execute
+    return self._parent.execute(command, params)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x010B0283+25139]
+	(No symbol) [0x0103B234]
+	(No symbol) [0x00F10300]
+	(No symbol) [0x00F52D39]
+	(No symbol) [0x00F51B2E]
+	(No symbol) [0x00F7CF3C]
+	(No symbol) [0x00F4D8E4]
+	(No symbol) [0x00F7D1B4]
+	(No symbol) [0x00F9E6E1]
+	(No symbol) [0x00F7CD36]
+	(No symbol) [0x00F4BD29]
+	(No symbol) [0x00F4D064]
+	GetHandleVerifier [0x013BB143+3215603]
+	GetHandleVerifier [0x013D22BA+3310186]
+	GetHandleVerifier [0x013CC4D2+3286146]
+	GetHandleVerifier [0x01149C80+654384]
+	(No symbol) [0x010445BD]
+	(No symbol) [0x010414A8]
+	(No symbol) [0x01041647]
+	(No symbol) [0x01033D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 13:07:32 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:07:32 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json, записано 0 записей
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:07:32 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:07:33 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:07:33 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:07:33 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 13:07:33 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:07:33 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:07:33 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 13:07:33 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:07:33 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:07:36 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:07:36 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:07:36 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:07:37 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:07:37 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:07:37 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 13:07:38 - ParserLogger - ERROR - [BonpetParser.py:57] - BonpetParser: Ошибка на этапе ввода запроса '267515': Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x010B0283+25139]
+	(No symbol) [0x0103B234]
+	(No symbol) [0x00F10300]
+	(No symbol) [0x00F52D39]
+	(No symbol) [0x00F51B2E]
+	(No symbol) [0x00F7CF3C]
+	(No symbol) [0x00F4D8E4]
+	(No symbol) [0x00F7D1B4]
+	(No symbol) [0x00F9E6E1]
+	(No symbol) [0x00F7CD36]
+	(No symbol) [0x00F4BD29]
+	(No symbol) [0x00F4D064]
+	GetHandleVerifier [0x013BB143+3215603]
+	GetHandleVerifier [0x013D22BA+3310186]
+	GetHandleVerifier [0x013CC4D2+3286146]
+	GetHandleVerifier [0x01149C80+654384]
+	(No symbol) [0x010445BD]
+	(No symbol) [0x010414A8]
+	(No symbol) [0x01041647]
+	(No symbol) [0x01033D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+Traceback (most recent call last):
+  File "c:\Users\z0047uc2m\Desktop\GUI\src\parsers\BonpetParser.py", line 51, in _entering_request
+    search_input.send_keys(self.request)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 301, in send_keys
+    self._execute(
+    ~~~~~~~~~~~~~^
+        Command.SEND_KEYS_TO_ELEMENT, {"text": "".join(keys_to_typing(value)), "value": keys_to_typing(value)}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webelement.py", line 570, in _execute
+    return self._parent.execute(command, params)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 429, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\z0047uc2m\Desktop\GUI\.venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=133.0.6943.100)
+Stacktrace:
+	GetHandleVerifier [0x010B0283+25139]
+	(No symbol) [0x0103B234]
+	(No symbol) [0x00F10300]
+	(No symbol) [0x00F52D39]
+	(No symbol) [0x00F51B2E]
+	(No symbol) [0x00F7CF3C]
+	(No symbol) [0x00F4D8E4]
+	(No symbol) [0x00F7D1B4]
+	(No symbol) [0x00F9E6E1]
+	(No symbol) [0x00F7CD36]
+	(No symbol) [0x00F4BD29]
+	(No symbol) [0x00F4D064]
+	GetHandleVerifier [0x013BB143+3215603]
+	GetHandleVerifier [0x013D22BA+3310186]
+	GetHandleVerifier [0x013CC4D2+3286146]
+	GetHandleVerifier [0x01149C80+654384]
+	(No symbol) [0x010445BD]
+	(No symbol) [0x010414A8]
+	(No symbol) [0x01041647]
+	(No symbol) [0x01033D20]
+	BaseThreadInitThunk [0x7666FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x778982AE+286]
+	RtlGetAppContainerNamedObjectPath [0x7789827E+238]
+
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 13:07:38 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-07-14_19-02-2025.json, записано 0 записей
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:07:38 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:07:38 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:07:39 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 13:16:04 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 13:16:04 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:04 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 13:16:04 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_13-16-04_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 13:16:04 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:16:04 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:16:11 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:16:11 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:16:11 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:16:12 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:16:12 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:16:12 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 13:16:14 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 13:16:14 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 13:16:14 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:14 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:16:14 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:16:14 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:16:14 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 13:16:15 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json, записано 0 записей
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:16:15 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:16:15 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:16:15 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:16:15 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:16:19 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:16:19 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:16:19 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:16:21 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:16:21 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:16:21 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 13:16:22 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json, записано 0 записей
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:16:22 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:16:22 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:16:22 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 13:16:22 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:16:23 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:16:23 - ParserLogger - INFO - [BonpetParser.py:105] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 13:16:23 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:16:23 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:16:29 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:16:29 - ParserLogger - INFO - [BonpetParser.py:108] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:16:29 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:16:31 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:16:31 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:16:31 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:112] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:114] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:99] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:116] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 13:16:32 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-16-04_19-02-2025.json, записано 0 записей
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:16:32 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:16:32 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:16:33 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 13:50:46 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 13:50:46 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:50:46 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 13:50:46 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_13-50-46_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 13:50:46 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:50:46 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:50:52 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:50:52 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:50:52 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:50:55 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:50:55 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:50:55 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:50:57 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 13:50:57 - ParserLogger - DEBUG - [BonpetParser.py:103] - BonpetParser: Карточка товара не прошла фильтр: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 13:50:57 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json, записано 0 записей
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:50:57 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:50:57 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:50:57 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:50:57 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:51:03 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:51:03 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:51:03 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:51:05 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:51:05 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:51:05 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 13:51:07 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json, записано 0 записей
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:51:07 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:51:07 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:51:07 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:51:07 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:51:13 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:51:13 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:51:13 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:51:14 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:51:14 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:51:14 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:51:16 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 13:51:16 - ParserLogger - DEBUG - [BonpetParser.py:103] - BonpetParser: Карточка товара не прошла фильтр: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 13:51:16 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-50-46_19-02-2025.json, записано 0 записей
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:51:16 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:51:16 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 13:53:54 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 13:53:54 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:53:54 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 13:53:54 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_13-53-54_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 13:53:54 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:53:54 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:54:00 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:54:00 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:54:00 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:54:02 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:54:02 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:54:02 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:54:04 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 13:54:04 - ParserLogger - DEBUG - [BonpetParser.py:103] - BonpetParser: Карточка товара не прошла фильтр: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 13:54:04 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json, записано 0 записей
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:54:04 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:54:04 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:54:04 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:54:04 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:54:10 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:54:10 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:54:10 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:54:12 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:54:12 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:54:12 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 13:54:13 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json, записано 0 записей
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:54:13 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:54:13 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 13:54:13 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 13:54:13 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:54:14 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 13:54:14 - ParserLogger - INFO - [BonpetParser.py:110] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 13:54:14 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 13:54:14 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 13:54:20 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 13:54:20 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: WebDriver успешно настроен
+2025-02-19 13:54:20 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 13:54:21 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 13:54:21 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 13:54:21 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:119] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 13:54:23 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 13:54:23 - ParserLogger - DEBUG - [BonpetParser.py:103] - BonpetParser: Карточка товара не прошла фильтр: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:104] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:121] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 13:54:23 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:124] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_13-53-54_19-02-2025.json, записано 0 записей
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:126] - BonpetParser: Данные успешно сохранены
+2025-02-19 13:54:23 - ParserLogger - INFO - [BonpetParser.py:127] - BonpetParser: Парсинг завершён, всего обработано 0 товаров
+2025-02-19 13:54:23 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 13:54:24 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 14:08:52 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 14:08:52 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:08:52 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 14:08:52 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_14-08-52_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 14:08:52 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:08:52 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:08:58 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:08:58 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:08:58 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:09:00 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:09:00 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:09:00 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:09:02 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json, записано 1 записей
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:09:02 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:09:02 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:09:02 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 14:09:02 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:09:03 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:09:03 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 14:09:03 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:09:03 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:09:08 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:09:08 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:09:08 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:09:11 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:09:11 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:09:11 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 14:09:12 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json, записано 1 записей
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:09:12 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:09:12 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:09:12 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:09:12 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:09:18 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:09:18 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:09:18 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:09:20 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:09:20 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:09:20 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:09:22 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-08-52_19-02-2025.json, записано 2 записей
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:09:22 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 2 товаров
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:09:22 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 14:16:57 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 14:16:57 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:16:57 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 14:16:57 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_14-16-57_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 14:16:57 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:16:57 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:17:03 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:17:03 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:17:03 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:17:05 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:17:05 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:17:05 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:17:07 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87', 'cards_ID': ''}
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json, записано 1 записей
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:17:07 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:17:07 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:17:07 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 14:17:07 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:17:08 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:17:08 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 14:17:08 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:17:08 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:17:15 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:17:15 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:17:15 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:17:16 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:17:16 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:17:16 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 14:17:18 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json, записано 1 записей
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:17:18 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:17:18 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:17:18 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:17:18 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:17:24 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:17:24 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:17:24 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:17:26 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:17:26 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:17:26 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:17:28 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105', 'cards_ID': ''}
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-16-57_19-02-2025.json, записано 2 записей
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:17:28 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 2 товаров
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:17:28 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 14:33:26 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 14:33:26 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:26 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 14:33:26 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_14-33-26_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 14:33:26 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:33:26 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:33:32 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:33:32 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:33:32 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:33:34 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:33:34 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:33:34 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 14:33:36 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 14:33:36 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 14:33:36 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:36 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 14:33:36 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:33:36 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:33:37 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'Ссылка не найдена', 'price': '87 900 ₽', 'cards_ID': ''}
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json, записано 1 записей
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:33:37 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:33:37 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:33:37 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:33:37 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:33:44 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:33:44 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:33:44 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:33:46 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:33:46 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:33:46 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 14:33:48 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json, записано 1 записей
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:33:48 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:33:48 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:33:48 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:33:48 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:33:54 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:33:54 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:33:54 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:33:56 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:33:56 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:33:56 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:33:57 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'Ссылка не найдена', 'price': '105 678 ₽', 'cards_ID': ''}
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-33-26_19-02-2025.json, записано 2 записей
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:33:57 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 2 товаров
+2025-02-19 14:33:57 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:33:58 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:285] - Инициализирован загрузчик данных, файл: data.xlsx
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:291] - Загрузка артикулов из файла: data.xlsx
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:297] - Успешно загружено 3 артикулов из data.xlsx
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:47] - Первый вызов класса BonpetParser
+2025-02-19 14:37:43 - ParserLogger - INFO - [BonpetParser.py:16] - BonpetParser: Первый вызов _run_once(), создаём файл JSON
+2025-02-19 14:37:43 - ParserLogger - DEBUG - [BonpetParser.py:23] - BonpetParser: JSON-файл будет сохранён по пути: ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:37:43 - ParserLogger - INFO - [BonpetParser.py:27] - BonpetParser: Директория проверена/создана: ./data/JSON/BonpetData
+2025-02-19 14:37:43 - ParserLogger - INFO - [BonpetParser.py:36] - BonpetParser: Файл BonpetData_14-37-43_19-02-2025.json успешно создан, записано 0 записей
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=АВР-Б-100-2-1
+2025-02-19 14:37:43 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'АВР-Б-100-2-1'
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:37:43 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:37:49 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:37:49 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:37:49 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:37:51 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:37:51 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:37:51 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'АВР-Б-100-2-1' в поисковую строку
+2025-02-19 14:37:53 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'АВР-Б-100-2-1' успешно выполнен
+2025-02-19 14:37:53 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'АВР-Б-100-2-1' отправлен
+2025-02-19 14:37:53 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:37:53 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 0 записей из JSON
+2025-02-19 14:37:53 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:37:53 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:37:53 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:37:54 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Шкаф АВР 100А, 2 ввода', 'url': 'https://bonpet.tech/product/avr-b-100-2-1', 'price': '87 900 ₽', 'cards_ID': ''}
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса АВР-Б-100-2-1
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json, записано 1 записей
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:37:54 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:37:54 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=bababab
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:37:54 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса 'bababab'
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:37:54 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:38:01 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:38:01 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:38:01 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:38:02 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:38:02 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:38:02 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса 'bababab' в поисковую строку
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу 'bababab' успешно выполнен
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос 'bababab' отправлен
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 0 карточек товаров
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 0 карточек в JSON
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 0 товаров
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса bababab
+2025-02-19 14:38:04 - ParserLogger - WARNING - [AbstractParser.py:125] - BonpetParser: new_data пуст или отсутствует, данные не добавлены
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json, записано 1 записей
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:38:04 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 1 товаров
+2025-02-19 14:38:04 - ParserLogger - WARNING - [AbstractParser.py:50] - Повторный вызов класса BonpetParser, _run_once() не будет запущен
+2025-02-19 14:38:04 - ParserLogger - WARNING - [BonpetParser.py:39] - BonpetParser: Метод _run_once() уже был вызван ранее, повторный запуск игнорируется
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:55] - Экземпляр парсера BonpetParser успешно создан: URL=https://bonpet.tech/, Request=267515
+2025-02-19 14:38:04 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:38:05 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён
+2025-02-19 14:38:05 - ParserLogger - INFO - [BonpetParser.py:106] - BonpetParser: Начало парсинга Bonpet.tech для запроса '267515'
+2025-02-19 14:38:05 - ParserLogger - INFO - [AbstractParser.py:69] - BonpetParser: Настройка Chrome WebDriver
+2025-02-19 14:38:05 - ParserLogger - INFO - [AbstractParser.py:82] - BonpetParser: Запуск Chrome WebDriver (headless=False)
+2025-02-19 14:38:11 - ParserLogger - INFO - [AbstractParser.py:86] - BonpetParser: Chrome WebDriver успешно запущен
+2025-02-19 14:38:11 - ParserLogger - INFO - [BonpetParser.py:109] - BonpetParser: WebDriver успешно настроен
+2025-02-19 14:38:11 - ParserLogger - INFO - [AbstractParser.py:95] - BonpetParser: Открытие URL https://bonpet.tech/
+2025-02-19 14:38:14 - ParserLogger - INFO - [AbstractParser.py:100] - BonpetParser: Успешно загружен URL https://bonpet.tech/
+2025-02-19 14:38:14 - ParserLogger - INFO - [BonpetParser.py:111] - BonpetParser: Страница Bonpet.tech успешно загружена
+2025-02-19 14:38:14 - ParserLogger - INFO - [BonpetParser.py:48] - BonpetParser: Ввод запроса '267515' в поисковую строку
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:55] - BonpetParser: Поиск по запросу '267515' успешно выполнен
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:113] - BonpetParser: Запрос '267515' отправлен
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:142] - BonpetParser: Загрузка данных из файла ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:151] - BonpetParser: Успешно загружено 1 записей из JSON
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:115] - BonpetParser: Загружены предыдущие данные (если есть)
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:62] - BonpetParser: Начало парсинга страницы
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:67] - BonpetParser: Найдено 1 карточек товаров
+2025-02-19 14:38:15 - ParserLogger - DEBUG - [BonpetParser.py:97] - BonpetParser: Извлечённые данные для карточки: {'description': 'Блок АВР CHINT NXZM-125H/4B 4P 100А Icn=50 кА', 'url': 'https://bonpet.tech/product/267515', 'price': '105 678 ₽', 'cards_ID': ''}
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:100] - BonpetParser: Парсинг завершён, добавлено 1 карточек в JSON
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:117] - BonpetParser: Парсинг страницы завершён, найдено 1 товаров
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:121] - BonpetParser: Добавление данных для запроса 267515
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:132] - BonpetParser: Добавлено 1 записей в self.data
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:120] - BonpetParser: Новые данные добавлены в JSON
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:170] - BonpetParser: Сохранение данных в файл ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:179] - BonpetParser: Файл найден, обновляем данные
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:193] - BonpetParser: Данные успешно сохранены в ./data/JSON/BonpetData\BonpetData_14-37-43_19-02-2025.json, записано 2 записей
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:122] - BonpetParser: Данные успешно сохранены
+2025-02-19 14:38:15 - ParserLogger - INFO - [BonpetParser.py:123] - BonpetParser: Парсинг завершён, всего обработано 2 товаров
+2025-02-19 14:38:15 - ParserLogger - INFO - [AbstractParser.py:264] - BonpetParser: Завершение WebDriver
+2025-02-19 14:38:16 - ParserLogger - INFO - [AbstractParser.py:266] - BonpetParser: WebDriver успешно завершён

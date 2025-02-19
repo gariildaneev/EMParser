@@ -43,11 +43,11 @@ class BonpetParser(AbstractParser):
 
     def _entering_request(self):
         """Вводит запрос в строку поиска и нажимает кнопку поиска на Bonpet.tech."""
-        from src.logger import parser_logger
+        from src.logger.logger import parser_logger
         try:
             parser_logger.info(f"{self.__class__.__name__}: Ввод запроса '{self.request}' в поисковую строку")
             # Находим поле ввода и вводим запрос
-            search_input = self.driver.find_element(By.CSS_SELECTOR, '[id="search"]')  # Update selector
+            search_input = self.driver.find_element(By.CSS_SELECTOR, '[class="form-control"]')  # Update selector
             search_input.send_keys(self.request)
             # Нажимаем кнопку поиска
             search_button = self.driver.find_element(By.CSS_SELECTOR, '[class="button-search"]')  # Update selector
@@ -58,7 +58,7 @@ class BonpetParser(AbstractParser):
 
     def _pars_page(self):
         """Парсит товары на странице Bonpet.tech и сохраняет данные."""
-        from src.logger import parser_logger
+        from src.logger.logger import parser_logger
         parser_logger.info(f"{self.__class__.__name__}: Начало парсинга страницы")
         self.new_data = []
         try:
@@ -74,12 +74,12 @@ class BonpetParser(AbstractParser):
             except Exception:
                 description = 'Описание не найдено'
             try:
-                url = title.find_element(By.CSS_SELECTOR, '[class="product-item"]').get_attribute('href')
+                url = title.find_element(By.CSS_SELECTOR, 'a').get_attribute('href')
             except Exception:
                 url = 'Ссылка не найдена'
             try:
                 price = title.find_element(By.CSS_SELECTOR, '[class="price"]').get_attribute('innerText')
-                price = price.replace("\u00A0", "").split()[0]
+                #price = price.replace("\u00A0", "").split()[0]
             except Exception:
                 price = 'Цена не найдена'
             try:
@@ -92,16 +92,17 @@ class BonpetParser(AbstractParser):
                 'price': price,
                 'cards_ID': cards_ID
             }
-            # Фильтрация товаров по ключевым словам в `self.items`
-            if any(item.lower() in description.lower() for item in self.items):
-                self.new_data.append(data)
-                parser_logger.debug(f"{self.__class__.__name__}: Добавлена карточка товара: {data}")
+
+            # Log the extracted data for debugging
+            parser_logger.debug(f"{self.__class__.__name__}: Извлечённые данные для карточки: {data}")
+
+            self.new_data.append(data)
         parser_logger.info(
             f"{self.__class__.__name__}: Парсинг завершён, добавлено {len(self.new_data)} карточек в JSON")
 
     def parse(self):
         """Запускает полный цикл парсинга Bonpet.tech."""
-        from src.logger import parser_logger
+        from src.logger.logger import parser_logger
         parser_logger.info(f"{self.__class__.__name__}: Начало парсинга Bonpet.tech для запроса '{self.request}'")
         try:
             self._setup()

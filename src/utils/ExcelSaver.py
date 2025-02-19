@@ -2,12 +2,13 @@ import json
 import os
 import pandas as pd
 from openpyxl import load_workbook, Workbook
+from src.logger.logger import parser_logger
 
 
 class ExcelSaver:
     def __init__(self, excel_file="Рабочий.xlsx", json_folder="json_data"):
         """Инициализирует объект для работы с Excel и JSON-данными."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Инициализация класса")
 
@@ -27,7 +28,7 @@ class ExcelSaver:
 
     def _get_latest_json(self, folder):
         """Находит самый свежий JSON-файл в указанной папке."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Поиск самого свежего JSON-файла в папке '{folder}'")
 
@@ -57,7 +58,7 @@ class ExcelSaver:
 
     def _load_price_from_json(self):
         """Загружает данные из JSON-файла."""
-        from src.logger import parser_logger
+        
         try:
             self.json_file = self._get_latest_json(self.json_folder)  # Выбираем самый свежий JSON-файл
             parser_logger.info(f"{self.__class__.__name__}: Начало загрузки данных из {self.json_file}")
@@ -81,7 +82,7 @@ class ExcelSaver:
 
     def _open_excel(self):
         """Открывает существующий Excel-файл и загружает артикулы с первого листа."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Открытие Excel-файла '{self.excel_file}'")
 
@@ -109,7 +110,7 @@ class ExcelSaver:
 
     def _create_json_sheet(self):
         """Создаёт новый лист с именем JSON-файла и записывает данные по артикулам."""
-        from src.logger import parser_logger
+        
         try:
             # Получаем последний JSON-файл
             self.json_file = self._get_latest_json(self.json_folder)
@@ -157,7 +158,7 @@ class ExcelSaver:
 
     def _save_to_excel(self):
         """Сохраняет изменения в Excel-файл."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Сохранение изменений в '{self.excel_file}'")
 
@@ -174,7 +175,7 @@ class ExcelSaver:
 
     def process_data(self):
         """Выполняет полный цикл обработки данных: загрузка, обновление и сохранение."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Начало обработки данных")
 
@@ -194,7 +195,7 @@ class ExcelSaver:
 
     def aggregate_prices_to_first_sheet(self):
         """Собирает все цены с каждого листа и аккумулирует их на первом листе."""
-        from src.logger import parser_logger
+        
         try:
             parser_logger.info(f"{self.__class__.__name__}: Начало агрегации цен в Excel-файл '{self.excel_file}'")
 

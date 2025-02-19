@@ -8,7 +8,7 @@ import platform
 import shutil
 import sys
 import tqdm
-from src.parsers import BonpetParser, AbstractParser
+from src.parsers.BonpetParser import BonpetParser
 from src.utils import ExcelSaver
 from src.logger.logger import parser_logger
 from src.parsers.AbstractParser import Loading_Source_Data

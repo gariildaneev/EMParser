@@ -31,7 +31,7 @@ class Logger:
         )
 
         # 🔹 Обработчик для файла (всё пишем в файл)
-        file_handler = RotatingFileHandler("parser.log", maxBytes=5_000_000, backupCount=3)
+        file_handler = RotatingFileHandler("parser.log", maxBytes=5_000_000, backupCount=3, encoding="utf-8")
         file_handler.setLevel(logging.DEBUG)  # В файл пишем ВСЕ уровни логов
         file_handler.setFormatter(file_formatter)
 
