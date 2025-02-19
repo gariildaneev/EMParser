@@ -1,5 +1,4 @@
 import customtkinter as ctk
-from tkinter import filedialog
 import threading
 import openpyxl
 from pathlib import Path
@@ -9,8 +8,7 @@ import shutil
 import sys
 import tqdm
 from src.parsers.BonpetParser import BonpetParser
-from src.utils import ExcelSaver
-from src.logger.logger import parser_logger
+from src.utils.ExcelSaver import ExcelSaver
 from src.parsers.AbstractParser import Loading_Source_Data
 
 # Initialize CustomTkinter
@@ -60,7 +58,7 @@ class ParserApp(ctk.CTk):
             "eBay": {"id": 2, "site_name": "https://www.ebay.com/", "json_folder": "data/JSON/eBayData"},
             "ETM": {"id": 3, "site_name": "https://www.etm.ru/", "json_folder": "data/JSON/ETMData"},
             "YandexMarket": {"id": 4, "site_name": "https://market.yandex.ru/", "json_folder": "data/JSON/YandexMarketData"},
-            "Bonpet.tech": {"id": 5, "site_name": "https://bonpet.tech/", "json_folder": "data/JSON/BonpetTechData"}
+            "Bonpet.tech": {"id": 5, "site_name": "https://bonpet.tech/", "json_folder": "data/JSON/BonpetData"}
         }
         for shop in shops:
             checkbox = ctk.CTkCheckBox(shop_frame, text=shop, command=lambda s=shop: self.toggle_shop(s))
@@ -203,10 +201,6 @@ class ParserApp(ctk.CTk):
             self.log_to_console("All data successfully aggregated into Excel.")
         except Exception as e:
             self.log_to_console(f"Error aggregating data into Excel: {e}")
-
-    def simulate_work(self):
-        import time
-        time.sleep(2)  # Simulate parsing delay
 
     def log_to_console(self, message):
         """Log a message to the console output."""

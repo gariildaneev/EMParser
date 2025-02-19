@@ -6,7 +6,7 @@ from src.logger.logger import parser_logger
 
 
 class ExcelSaver:
-    def __init__(self, excel_file="Рабочий.xlsx", json_folder="json_data"):
+    def __init__(self, excel_file="temp_data.xlsx", json_folder="json_data"):
         """Инициализирует объект для работы с Excel и JSON-данными."""
         
         try:
@@ -242,13 +242,4 @@ class ExcelSaver:
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при агрегации цен: {e}")
 
-# # Пример использования
-# saver = ExcelSaver(json_folder="JSON/ChipDipData")
-# saver1 = ExcelSaver(json_folder="JSON/eBayData")
-# saver2 = ExcelSaver(json_folder="JSON/ETMData")
-# saver3 = ExcelSaver(json_folder="JSON/YandexMarketData")
-# saver.process_data()
-# saver1.process_data()
-# saver2.process_data()
-# saver3.process_data()
-# saver3.aggregate_prices_to_first_sheet()
+
