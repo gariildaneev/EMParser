@@ -79,8 +79,8 @@ class AbstractParser(ABC):
             # chrome_options.add_argument("--no-sandbox")  # Отключает режим песочницы (ускоряет запуск)
 
             # Запуск Chrome
-            parser_logger.info(f"{self.__class__.__name__}: Запуск Chrome WebDriver (headless=False)")
-            self.driver = uc.Chrome(options=chrome_options, headless=False, use_subprocess=False,
+            parser_logger.info(f"{self.__class__.__name__}: Запуск Chrome WebDriver")
+            self.driver = uc.Chrome(options=chrome_options, headless=True, use_subprocess=False,
                                     version_main=self.version_chrome)
 
             parser_logger.info(f"{self.__class__.__name__}: Chrome WebDriver успешно запущен")

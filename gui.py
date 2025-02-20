@@ -10,6 +10,7 @@ import tqdm
 from src.parsers.BonpetParser import BonpetParser
 from src.utils.ExcelSaver import ExcelSaver
 from src.parsers.AbstractParser import Loading_Source_Data
+import time
 
 # Initialize CustomTkinter
 ctk.set_appearance_mode("System")  # Modes: "System" (default), "Dark", "Light"
@@ -84,8 +85,6 @@ class ParserApp(ctk.CTk):
 
         # Progress Bar
         self.progress_bar = ctk.CTkProgressBar(self, mode="determinate")
-        self.progress_bar.set(0)
-        self.progress_bar.pack(pady=10, padx=20, fill="x")
 
         # Action Buttons
         action_frame = ctk.CTkFrame(self)
@@ -149,13 +148,18 @@ class ParserApp(ctk.CTk):
         threading.Thread(target=self.run_parsers).start()
 
     def run_parsers(self):
-        """Run selected parsers."""
+        """Run selected parsers with a progress bar."""
         selected_shops = [cb.cget("text") for cb in self.selected_shops if cb.get() == 1]
         if not selected_shops:
             self.log_to_console("No parsers selected.")
             return
 
         self.log_to_console(f"Selected parsers: {', '.join(selected_shops)}")
+        
+        # Show progress bar
+        self.progress_bar.set(0)  # Reset progress
+        self.progress_bar.pack(pady=10, padx=20, fill="x")  # Show progress bar
+        
         for shop in selected_shops:
             shop_info = self.shop_map.get(shop)
             if not shop_info:
@@ -174,34 +178,70 @@ class ParserApp(ctk.CTk):
 
             self.log_to_console(f"Starting parser for: {site_name}")
             try:
-                # Load articles from Excel
+                self.progress_bar.set(0)  # Reset progress
                 articles = list(Loading_Source_Data('data.xlsx').loading_articles())
                 self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
 
-                # Parse each article
-                for article in tqdm.tqdm(articles, desc=f"Parsing {site_name}", unit="item"):
+                self.smooth_progress_to(0.05)
+
+                total_articles = len(articles)
+                if total_articles > 0:
+                    step = 0.8 / total_articles  # Step size for progress
+
+                for index, article in enumerate(articles):
                     try:
                         parser = parser_class(url=site_name, request=article, items=[article])
                         parser.parse()
-                        
+
                         self.log_to_console(f"Successfully parsed article: {article}")
+
+                        # Update progress bar
+                        progress_value = 0.05 + (index + 1) * step  # Normalize progress
+                        self.smooth_progress_to(progress_value)
+
                     except Exception as e:
                         self.log_to_console(f"Error parsing article {article}: {e}")
 
-                # Save parsed data to JSON
                 saver = ExcelSaver(json_folder=json_folder)
                 saver.process_data()
                 self.log_to_console(f"Saved parsed data to JSON folder: {json_folder}")
+                self.smooth_progress_to(0.90)
             except Exception as e:
                 self.log_to_console(f"Error parsing shop {shop}: {e}")
 
-        # Aggregate all data into one Excel file
         try:
             saver_aggregate = ExcelSaver()
             saver_aggregate.aggregate_prices_to_first_sheet()
             self.log_to_console("All data successfully aggregated into Excel.")
+            self.smooth_progress_to(1.0)
+            
         except Exception as e:
             self.log_to_console(f"Error aggregating data into Excel: {e}")
+
+        # Gradually fade out progress bar
+        self.fade_out_progress_bar()
+
+    def fade_out_progress_bar(self):
+        """Gradually fade out the progress bar."""
+        for i in range(20, -1, -1):
+            self.progress_bar.configure(progress_color=f"gray{i}")  # Adjust color for fading effect
+            self.update_idletasks()
+            time.sleep(0.05)
+        
+        self.progress_bar.pack_forget()  # Hide after fading
+    
+    def smooth_progress_to(self, target_value, duration=0.3):
+        """Smoothly animate the progress bar to a target value."""
+        current_value = self.progress_bar.get()
+        steps = 20  # Number of small steps for smoothness
+        step_size = (target_value - current_value) / steps
+
+        for _ in range(steps):
+            current_value += step_size
+            self.progress_bar.set(current_value)
+            self.update_idletasks()
+            time.sleep(duration / steps)  # Small delay for smooth effect
+
 
     def log_to_console(self, message):
         """Log a message to the console output."""
