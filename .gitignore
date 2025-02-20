@@ -1,0 +1,71 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.flaskenv
+
+# Temporary files
+*.tmp
+*~
+
+# Testing and coverage reports
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Compiled source files
+*.so
+*.dll
+*.exe
+
+# Large media files (if applicable)
+*.mp4
+*.avi
+*.jpg
+*.png
+*.xlsx
+
+# Custom directories (add your own)
+data\
