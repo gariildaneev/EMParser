@@ -65,7 +65,6 @@ htmlcov/
 *.avi
 *.jpg
 *.png
-*.xlsx
 
 # Custom directories (add your own)
 data\
