@@ -6,6 +6,7 @@ import pandas as pd
 from time import sleep
 from datetime import datetime
 import subprocess
+import platform
 
 import undetected_chromedriver as uc
 from selenium.webdriver.chrome.options import Options
@@ -71,7 +72,11 @@ class AbstractParser(ABC):
             # Создание объекта настроек Chrome
             chrome_options = Options()
             chrome_options.page_load_strategy = 'eager'  # Загружать страницу быстрее
-            chrome_options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+            if platform.system() == "Windows":
+                chrome_options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"  # For Windows
+            elif platform.system() == "Darwin":  # macOS
+                chrome_options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" 
+            
 
             # Оптимизация запуска браузера (можно включить при необходимости)
             # chrome_options.add_argument("--disable-extensions")  # Отключает расширения
@@ -80,7 +85,7 @@ class AbstractParser(ABC):
 
             # Запуск Chrome
             parser_logger.info(f"{self.__class__.__name__}: Запуск Chrome WebDriver")
-            self.driver = uc.Chrome(options=chrome_options, headless=True, use_subprocess=False,
+            self.driver = uc.Chrome(options=chrome_options, headless=False, use_subprocess=False,
                                     version_main=self.version_chrome)
 
             parser_logger.info(f"{self.__class__.__name__}: Chrome WebDriver успешно запущен")
