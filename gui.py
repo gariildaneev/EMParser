@@ -8,6 +8,7 @@ import shutil
 import sys
 import tqdm
 from src.parsers.BonpetParser import BonpetParser
+from src.parsers.AliexpressParser import AliexpressParser
 from src.utils.ExcelSaver import ExcelSaver
 from src.parsers.AbstractParser import Loading_Source_Data
 
@@ -51,14 +52,15 @@ class ParserApp(ctk.CTk):
         shop_frame.pack(pady=10, padx=20, fill="x")
 
         # Checkboxes for Shops
-        shops = ["ChipDip", "eBay", "ETM", "YandexMarket", "Bonpet.tech"]
+        shops = ["ChipDip", "eBay", "ETM", "YandexMarket", "Bonpet.tech", "Aliexpress"]
 
         self.shop_map = {
             "ChipDip": {"id": 1, "site_name": "https://www.chipdip.ru/", "json_folder": "data/JSON/ChipDipData"},
             "eBay": {"id": 2, "site_name": "https://www.ebay.com/", "json_folder": "data/JSON/eBayData"},
             "ETM": {"id": 3, "site_name": "https://www.etm.ru/", "json_folder": "data/JSON/ETMData"},
             "YandexMarket": {"id": 4, "site_name": "https://market.yandex.ru/", "json_folder": "data/JSON/YandexMarketData"},
-            "Bonpet.tech": {"id": 5, "site_name": "https://bonpet.tech/", "json_folder": "data/JSON/BonpetData"}
+            "Bonpet.tech": {"id": 5, "site_name": "https://bonpet.tech/", "json_folder": "data/JSON/BonpetData"},
+            "Aliexpress": {"id": 6, "site_name": "https://aliexpress.ru/", "json_folder": "data/JSON/AliexpressData"}
         }
         for shop in shops:
             checkbox = ctk.CTkCheckBox(shop_frame, text=shop, command=lambda s=shop: self.toggle_shop(s))
@@ -165,7 +167,8 @@ class ParserApp(ctk.CTk):
             site_name = shop_info["site_name"]
             json_folder = shop_info["json_folder"]
             parser_class = {
-                "Bonpet.tech": BonpetParser
+                "Bonpet.tech": BonpetParser,
+                "Aliexpress" : AliexpressParser
             }.get(shop)
 
             if not parser_class:
@@ -175,7 +178,7 @@ class ParserApp(ctk.CTk):
             self.log_to_console(f"Starting parser for: {site_name}")
             try:
                 # Load articles from Excel
-                articles = list(Loading_Source_Data('data.xlsx').loading_articles())
+                articles = list(Loading_Source_Data('temp_data.xlsx').loading_articles())
                 self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
 
                 # Parse each article
