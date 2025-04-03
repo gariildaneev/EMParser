@@ -168,7 +168,7 @@ class ParserApp(ctk.CTk):
             json_folder = shop_info["json_folder"]
             parser_class = {
                 "Bonpet.tech": BonpetParser,
-                "Aliexpress" : AliexpressParser
+                "Aliexpress": AliexpressParser
             }.get(shop)
 
             if not parser_class:
@@ -181,11 +181,15 @@ class ParserApp(ctk.CTk):
                 articles = list(Loading_Source_Data('temp_data.xlsx').loading_articles())
                 self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
 
-                # Parse each article
+                # Create a single browser instance for the shop
+                parser_instance = parser_class(url=site_name, request="", items=[])
+                parser_instance._setup()  # Initialize WebDriver
+
+                # Parse each article using the same browser instance
                 for article in tqdm.tqdm(articles, desc=f"Parsing {site_name}", unit="item"):
                     try:
-                        parser = parser_class(url=site_name, request=article, items=[article])
-                        parser.parse()
+                        parser_instance.request = article
+                        parser_instance.parse()
                         self.log_to_console(f"Successfully parsed article: {article}")
                     except Exception as e:
                         self.log_to_console(f"Error parsing article {article}: {e}")
@@ -194,6 +198,10 @@ class ParserApp(ctk.CTk):
                 saver = ExcelSaver(json_folder=json_folder)
                 saver.process_data()
                 self.log_to_console(f"Saved parsed data to JSON folder: {json_folder}")
+
+                # Quit the browser after parsing all articles for the shop
+                parser_instance._quit_driver()
+
             except Exception as e:
                 self.log_to_console(f"Error parsing shop {shop}: {e}")
 

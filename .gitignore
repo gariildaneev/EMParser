@@ -67,4 +67,4 @@ htmlcov/
 *.png
 
 # Custom directories (add your own)
-data\
+data/

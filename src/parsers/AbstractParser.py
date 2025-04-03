@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import os
 import sys
+import random
 import json
 import pandas as pd
 from time import sleep
@@ -63,10 +64,15 @@ class AbstractParser(ABC):
         """ Проверяет, является ли этот объект первым экземпляром класса. """
         return AbstractParser._first_instance_called[self.__class__.__name__]
 
-    def _setup(self):
-        """Настраивает и запускает Chrome WebDriver"""
+    def _setup(self, reuse_driver=None):
+        """Sets up Chrome WebDriver or reuses an existing one."""
         from src.logger.logger import parser_logger
         try:
+            if reuse_driver:
+                self.driver = reuse_driver
+                parser_logger.info(f"{self.__class__.__name__}: Reusing existing Chrome WebDriver instance")
+                return
+
             parser_logger.info(f"{self.__class__.__name__}: Настройка Chrome WebDriver")
 
             # Создание объекта настроек Chrome
@@ -77,11 +83,19 @@ class AbstractParser(ABC):
             elif platform.system() == "Darwin":  # macOS
                 chrome_options.binary_location = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" 
             
-
+            # Установка размера окна
+            width = random.randint(768, 1080)
+            height = random.randint(768, 1080)
+            
+            #chrome_options.add_argument(f"user-agent={user_agent}")
+            chrome_options.add_argument(f"--window-size={width},{height}")
             # Оптимизация запуска браузера (можно включить при необходимости)
-            # chrome_options.add_argument("--disable-extensions")  # Отключает расширения
+            chrome_options.add_argument("--disable-extensions")  # Отключает расширения
+            chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+            
+            
             # chrome_options.add_argument("--disable-gpu")  # Отключает использование GPU (важно для headless)
-            # chrome_options.add_argument("--no-sandbox")  # Отключает режим песочницы (ускоряет запуск)
+            chrome_options.add_argument("--no-sandbox")  # Отключает режим песочницы (ускоряет запуск)
 
             # Запуск Chrome
             parser_logger.info(f"{self.__class__.__name__}: Запуск Chrome WebDriver")
@@ -93,17 +107,30 @@ class AbstractParser(ABC):
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при запуске Chrome WebDriver: {e}")
 
-    def _get_url(self):
-        """Загружает страницу в Chrome WebDriver"""
+    def _quit_driver(self):
+        """Closes the WebDriver explicitly."""
         from src.logger.logger import parser_logger
         try:
-            parser_logger.info(f"{self.__class__.__name__}: Открытие URL {self.url}")
+            if hasattr(self, "driver") and self.driver is not None:
+                parser_logger.info(f"{self.__class__.__name__}: Quitting WebDriver")
+                self.driver.quit()
+                self.driver = None
+            else:
+                parser_logger.warning(f"{self.__class__.__name__}: WebDriver already closed or not initialized")
+        except Exception as e:
+            parser_logger.exception(f"{self.__class__.__name__}: Error while quitting WebDriver: {e}")
 
-            # Переход по указанному URL
-            self.driver.get(self.url)
-
-            parser_logger.info(f"{self.__class__.__name__}: Успешно загружен URL {self.url}")
-
+    def _get_url(self, reload=False):
+        """Loads the page in Chrome WebDriver. Reloads only if specified."""
+        from src.logger.logger import parser_logger
+        try:
+            if reload or not hasattr(self, "_url_loaded") or not self._url_loaded:
+                parser_logger.info(f"{self.__class__.__name__}: Открытие URL {self.url}")
+                self.driver.get(self.url)
+                self._url_loaded = True
+                parser_logger.info(f"{self.__class__.__name__}: Успешно загружен URL {self.url}")
+            else:
+                parser_logger.info(f"{self.__class__.__name__}: URL {self.url} уже загружен, пропускаем повторную загрузку")
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при загрузке URL {self.url}: {e}")
 

@@ -1,11 +1,17 @@
 import json
 import os
+import random
+import time
 from datetime import datetime
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 from tqdm import tqdm
 from src.parsers.AbstractParser import AbstractParser
+from selenium.webdriver.common.action_chains import ActionChains
 
 class AliexpressParser(AbstractParser):
+
     def _run_once(self):
         """Creates a JSON file with initial data if this is the first instance."""
         from src.logger.logger import parser_logger
@@ -47,17 +53,55 @@ class AliexpressParser(AbstractParser):
         try:
             parser_logger.info(f"{self.__class__.__name__}: Entering search query '{self.request}'")
             
+            # Нажатие кнопки *какой-то город* - Верно
+            try:
+                WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                    '[class="ShipToHeaderItem_ButtonCTA__button__17o6s ShipToHeaderItem_Button__button__wso54 ShipToHeaderItem_GeoTooltip__mapGeoButton__h6wam"]'))
+                )
+                self.driver.find_element(By.CSS_SELECTOR,
+                                         '[class="ShipToHeaderItem_ButtonCTA__button__17o6s ShipToHeaderItem_Button__button__wso54 ShipToHeaderItem_GeoTooltip__mapGeoButton__h6wam"]').click()
+                parser_logger.info(f"{self.__class__.__name__}: Кнопка 'Верно' нажата")
+            except Exception:
+                parser_logger.warning(f"{self.__class__.__name__}: Кнопка 'Верно' не найдена")
+
+            time.sleep(random.uniform(1.0, 2.0))  # Случайная задержка перед началом ввода
+
             # Locate the search input field and enter the query
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, '[class="RedSearchBar_RedSearchBar__input__7hkcj"]'))
+            )
             search_input = self.driver.find_element(By.CSS_SELECTOR, '[class="RedSearchBar_RedSearchBar__input__7hkcj"]')
-            search_input.send_keys(self.request)
+            search_input.clear()  # Очищаем поле ввода перед вводом нового запроса
+
+            for char in self.request:   # Случайная задержка между вводом каждого символа
+                search_input.send_keys(char)
+                time.sleep(random.uniform(0.05, 0.2))
+            parser_logger.debug(f"{self.__class__.__name__}: Поле ввода поиска найдено")
+
+            
+
+            #ActionChains(self.driver).move_by_offset(20, 45).click().perform()
+            time.sleep(random.uniform(1, 3))
+        
             
             # Locate and click the search button
-            search_button = self.driver.find_element(By.CSS_SELECTOR, '[class="RedSearchBar_RedSearchBar__submit__7hkcj"]')
+            search_button = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, '[class="RedSearchBar_RedSearchBar__submit__7hkcj"]'))
+            )
+
+            #actions = ActionChains(self.driver)
+            #actions.move_by_offset(random.randint(-200, 200), random.randint(-200, 200)).perform()
+
             search_button.click()
+            parser_logger.debug(f"{self.__class__.__name__}: Кнопка поиска найдена и нажата")
+
+            time.sleep(random.uniform(1, 3))
             
             parser_logger.info(f"{self.__class__.__name__}: Search for query '{self.request}' completed successfully")
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Error while entering search query '{self.request}': {e}")
+            raise  # Повторно выбрасываем исключение, чтобы оно могло быть обработано выше
 
     def _pars_page(self):
         """Parses product cards on the AliExpress search results page."""
@@ -65,9 +109,20 @@ class AliexpressParser(AbstractParser):
         parser_logger.info(f"{self.__class__.__name__}: Starting page parsing")
         
         self.new_data = []
+
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, '[class="red-snippet_RedSnippet__mainBlock__e15tmk"]'))
+            )
+            parser_logger.info(f"{self.__class__.__name__}: Найден список товаров")
+        except Exception as e:
+            parser_logger.exception(f"{self.__class__.__name__}: Ошибка ожидания списка товаров: {e}")
+            return
+
         try:
             # Locate all product cards
-            product_cards = self.driver.find_elements(By.CSS_SELECTOR, 'red-snippet_RedSnippet__mainBlock__e15tmk')
+            product_cards = self.driver.find_elements(By.CSS_SELECTOR, '[class="red-snippet_RedSnippet__mainBlock__e15tmk"]')
             parser_logger.info(f"{self.__class__.__name__}: Found {len(product_cards)} product cards")
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Error locating product cards: {e}")
@@ -76,7 +131,7 @@ class AliexpressParser(AbstractParser):
         for card in tqdm(product_cards, desc="Parsing Products", unit="product"):
             try:
                 # Extract product details
-                description = card.find_element(By.CLASS_NAME, 'red-snippet_RedSnippet__title__e15tmk red-typography-utils_style__body_s_regular_16__1f5x18').text.strip()
+                description = card.find_element(By.CLASS_NAME, 'red-snippet_RedSnippet__title__e15tmk').text.strip()
             except Exception:
                 description = 'Description not found'
             
@@ -93,17 +148,12 @@ class AliexpressParser(AbstractParser):
             except Exception:
                 price = 'Price not found'
             
-            try:
-                product_id = card.find_element(By.CSS_SELECTOR, 'div.red-snippet_RedSnippet__container__e15tmk').get_attribute('data-product-id')
-            except Exception:
-                product_id = 'Product ID not found'
             
             # Store extracted data
             data = {
                 'description': description,
                 'url': url,
-                'price': price,
-                'product_id': product_id
+                'price': price
             }
             
             # Log extracted data for debugging
@@ -119,8 +169,8 @@ class AliexpressParser(AbstractParser):
         parser_logger.info(f"{self.__class__.__name__}: Starting AliExpress parsing for query '{self.request}'")
         
         try:
-            self._setup()
-            parser_logger.info(f"{self.__class__.__name__}: WebDriver successfully configured")
+            #self._setup()
+            #parser_logger.info(f"{self.__class__.__name__}: WebDriver successfully configured")
             
             self._get_url()
             parser_logger.info(f"{self.__class__.__name__}: AliExpress page successfully loaded")
