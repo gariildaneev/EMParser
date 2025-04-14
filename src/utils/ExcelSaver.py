@@ -245,15 +245,16 @@ class ExcelSaver:
             for article, records in aggregated_data.items():
                 # Объединяем три колонки для артикула
                 first_sheet.merge_cells(
-                    start_row=1, start_column=current_col, end_row=1, end_column=current_col + 2
+                    start_row=1, start_column=current_col, end_row=1, end_column=current_col + 3
                 )
                 first_sheet.cell(row=1, column=current_col).value = article
                 first_sheet.cell(row=1, column=current_col).alignment = Alignment(horizontal="center", vertical="center")
 
-                # Записываем заголовки "shop", "name" и "price"
+                # Записываем заголовки "shop", "name", "price" и "link"
                 first_sheet.cell(row=2, column=current_col).value = "shop"
                 first_sheet.cell(row=2, column=current_col + 1).value = "name"
                 first_sheet.cell(row=2, column=current_col + 2).value = "price"
+                first_sheet.cell(row=2, column=current_col + 3).value = "link"
 
                 # Записываем данные
                 row = 3
@@ -261,9 +262,27 @@ class ExcelSaver:
                     first_sheet.cell(row=row, column=current_col).value = record["shop"]
                     first_sheet.cell(row=row, column=current_col + 1).value = record["name"]
                     first_sheet.cell(row=row, column=current_col + 2).value = record["price"]
+                    link_cell = first_sheet.cell(row=row, column=current_col + 3)
+                    link_cell.value = record.get("link", "")
+                    if link_cell.value:  # Если есть ссылка, делаем её кликабельной
+                        link_cell.hyperlink = link_cell.value
+                        link_cell.style = "Hyperlink"
                     row += 1
 
-                current_col += 3  # Переход к следующей тройке колонок
+                current_col += 4  # Переход к следующей четвёрке колонок
+
+            # Автоматическое изменение ширины колонок
+            for col in first_sheet.columns:
+                max_length = 0
+                col_letter = col[0].column_letter  # Получаем букву колонки
+                for cell in col:
+                    try:
+                        if cell.value:
+                            max_length = max(max_length, len(str(cell.value)))
+                    except:
+                        pass
+                adjusted_width = max_length + 2
+                first_sheet.column_dimensions[col_letter].width = adjusted_width
 
             parser_logger.info(f"{self.__class__.__name__}: Агрегация завершена, данные сохранены в '{self.excel_file}'")
 

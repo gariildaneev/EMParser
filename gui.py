@@ -9,6 +9,11 @@ import sys
 import tqdm
 from src.parsers.BonpetParser import BonpetParser
 from src.parsers.AliexpressParser import AliexpressParser
+from src.parsers.ChipDipParser import ChipDipParser
+from src.parsers.ETMParser import ETMParser
+from src.parsers.eBayParser import eBayParser
+from src.parsers.ZakupkiParser import ZakupkiParser
+from src.parsers.YandexMarketParser import YandexMarketParser
 from src.utils.ExcelSaver import ExcelSaver
 from src.parsers.AbstractParser import Loading_Source_Data
 
@@ -52,7 +57,7 @@ class ParserApp(ctk.CTk):
         shop_frame.pack(pady=10, padx=20, fill="x")
 
         # Checkboxes for Shops
-        shops = ["ChipDip", "eBay", "ETM", "YandexMarket", "Bonpet.tech", "Aliexpress"]
+        shops = ["ChipDip", "eBay", "ETM", "YandexMarket", "Bonpet.tech", "Aliexpress", "Zakupki"]
 
         self.shop_map = {
             "ChipDip": {"id": 1, "site_name": "https://www.chipdip.ru/", "json_folder": "data/JSON/ChipDipData"},
@@ -60,7 +65,8 @@ class ParserApp(ctk.CTk):
             "ETM": {"id": 3, "site_name": "https://www.etm.ru/", "json_folder": "data/JSON/ETMData"},
             "YandexMarket": {"id": 4, "site_name": "https://market.yandex.ru/", "json_folder": "data/JSON/YandexMarketData"},
             "Bonpet.tech": {"id": 5, "site_name": "https://bonpet.tech/", "json_folder": "data/JSON/BonpetData"},
-            "Aliexpress": {"id": 6, "site_name": "https://aliexpress.ru/", "json_folder": "data/JSON/AliexpressData"}
+            "Aliexpress": {"id": 6, "site_name": "https://aliexpress.ru/", "json_folder": "data/JSON/AliexpressData"},
+            "Zakupki": {"id": 7, "site_name": "https://www.zakupki.ru/", "json_folder": "data/JSON/ZakupkiData"},
         }
         for shop in shops:
             checkbox = ctk.CTkCheckBox(shop_frame, text=shop, command=lambda s=shop: self.toggle_shop(s))
@@ -173,7 +179,12 @@ class ParserApp(ctk.CTk):
             json_folder = shop_info["json_folder"]
             parser_class = {
                 "Bonpet.tech": BonpetParser,
-                "Aliexpress": AliexpressParser
+                "Aliexpress": AliexpressParser,
+                "ChipDip": ChipDipParser,
+                "ETM": ETMParser,
+                "eBay": eBayParser,
+                "Zakupki": ZakupkiParser,
+                "YandexMarket": YandexMarketParser
             }.get(shop)
 
             if not parser_class:
