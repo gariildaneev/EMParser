@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 from openpyxl import load_workbook, Workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Alignment
 from src.logger.logger import parser_logger
 
 
@@ -109,49 +111,49 @@ class ExcelSaver:
             raise
 
     def _create_json_sheet(self):
-        """Создаёт новый лист с именем JSON-файла и записывает данные по артикулам."""
+        """Создаёт новый лист с именем JSON-файла и записывает данные по артикулам в заданном формате."""
         
         try:
-            # Получаем последний JSON-файл
             self.json_file = self._get_latest_json(self.json_folder)
             parser_logger.info(f"{self.__class__.__name__}: Создание нового листа из JSON-файла '{self.json_file}'")
 
-            # Загружаем данные из JSON
             self.data = self._load_price_from_json()
-
-            # Определяем имя нового листа
-            sheet_name = os.path.basename(self.json_file).split('.')[0].split("_")[0]
+            sheet_name = os.path.basename(self.json_file).split('.')[0].split("_")[0].removesuffix('Data')
             parser_logger.debug(f"{self.__class__.__name__}: Имя нового листа: {sheet_name}")
 
-            # Если лист уже существует — удаляем его
             if sheet_name in self.workbook.sheetnames:
                 parser_logger.warning(f"{self.__class__.__name__}: Лист '{sheet_name}' уже существует, удаляем его")
                 self.workbook.remove(self.workbook[sheet_name])
 
-            # Создаём новый лист
             self.workbook.create_sheet(sheet_name)
             ws = self.workbook[sheet_name]
 
-            # Записываем заголовки (можно раскомментировать, если нужны заголовки)
-            # ws.append(["Артикул", "Цена 1", "Цена 2", "Цена 3", "..."])
-
-            count_written = 0  # Считаем, сколько артикулов записано
+            current_col = 1  # Начальная колонка
             for article in self.articles:
-                prices = []
+                col_letter = get_column_letter(current_col)
+                next_col_letter = get_column_letter(current_col + 1)
+
+                # Объединяем две колонки для артикула
+                ws.merge_cells(f"{col_letter}1:{next_col_letter}1")
+                ws[f"{col_letter}1"] = article
+                ws[f"{col_letter}1"].alignment = Alignment(horizontal="center", vertical="center")
+
+                # Записываем заголовки "name" и "price"
+                ws[f"{col_letter}2"] = "name"
+                ws[f"{next_col_letter}2"] = "price"
+
+                row = 3  # Начальная строка для данных
                 for item in self.data.get("Данные", []):
                     if article in item:
-                        price = item[article].get("price")
-                        prices.append(price)
+                        description = item[article].get("description", "Не найдено")
+                        price = item[article].get("price", "Не найдено")
+                        ws[f"{col_letter}{row}"] = description
+                        ws[f"{next_col_letter}{row}"] = price
+                        row += 1
 
-                if prices:
-                    ws.append([article] + prices)
-                    count_written += 1
-                else:
-                    ws.append([article, "Не найдено"])
-                    parser_logger.debug(f"{self.__class__.__name__}: Для артикула '{article}' данные не найдены")
+                current_col += 2  # Переход к следующей паре колонок
 
-            parser_logger.info(
-                f"{self.__class__.__name__}: Создан новый лист '{sheet_name}', записано {count_written} артикулов")
+            parser_logger.info(f"{self.__class__.__name__}: Создан новый лист '{sheet_name}' в заданном формате")
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при создании листа '{sheet_name}': {e}")
@@ -205,39 +207,68 @@ class ExcelSaver:
             first_sheet = self.workbook[first_sheet_name]
             parser_logger.debug(f"{self.__class__.__name__}: Первый лист для агрегации: '{first_sheet_name}'")
 
-            # Словарь для аккумулирования цен по артикулам
-            aggregated_data = {article: [] for article in self.articles}
+            # Очистка первой страницы от старых данных
+            first_sheet.delete_rows(1, first_sheet.max_row)
 
-            # Обход всех листов, кроме первого
+            # Словарь для хранения данных по артикулам
+            aggregated_data = {}
+
             for sheet_name in self.workbook.sheetnames[1:]:
                 sheet = self.workbook[sheet_name]
                 parser_logger.info(f"{self.__class__.__name__}: Обрабатываем лист '{sheet_name}'")
 
-                for row in sheet.iter_rows(min_row=1, values_only=True):
-                    article = row[0]
-                    prices = row[1:]
+                for col in range(1, sheet.max_column + 1, 2):  # Обрабатываем пары колонок
+                    article_cell = sheet.cell(row=1, column=col)
+                    if not article_cell.value:
+                        continue
 
-                    if article in aggregated_data:
-                        aggregated_data[article].extend([price for price in prices if price])
-                    else:
-                        parser_logger.debug(
-                            f"{self.__class__.__name__}: Артикул '{article}' не найден в основном списке")
+                    article = article_cell.value
+                    shop_name = sheet_name  # Название магазина — имя листа
 
-            # Очистка первой страницы от старых данных
-            first_sheet.delete_rows(1, first_sheet.max_row)
+                    # Инициализируем список для артикула, если его ещё нет
+                    if article not in aggregated_data:
+                        aggregated_data[article] = []
 
-            # Запись данных на первый лист
-            count_written = 0
-            for article, prices in aggregated_data.items():
-                first_sheet.append([article] + prices)
-                count_written += 1
+                    # Собираем данные
+                    for data_row in range(3, sheet.max_row + 1):
+                        name = sheet.cell(row=data_row, column=col).value
+                        price = sheet.cell(row=data_row, column=col + 1).value
+                        if name or price:  # Добавляем только если есть данные
+                            aggregated_data[article].append({
+                                "shop": shop_name,
+                                "name": name,
+                                "price": price
+                            })
 
-            parser_logger.info(f"{self.__class__.__name__}: На первый лист записано {count_written} артикулов")
+            # Записываем данные на первый лист
+            current_col = 1
+            for article, records in aggregated_data.items():
+                # Объединяем три колонки для артикула
+                first_sheet.merge_cells(
+                    start_row=1, start_column=current_col, end_row=1, end_column=current_col + 2
+                )
+                first_sheet.cell(row=1, column=current_col).value = article
+                first_sheet.cell(row=1, column=current_col).alignment = Alignment(horizontal="center", vertical="center")
+
+                # Записываем заголовки "shop", "name" и "price"
+                first_sheet.cell(row=2, column=current_col).value = "shop"
+                first_sheet.cell(row=2, column=current_col + 1).value = "name"
+                first_sheet.cell(row=2, column=current_col + 2).value = "price"
+
+                # Записываем данные
+                row = 3
+                for record in records:
+                    first_sheet.cell(row=row, column=current_col).value = record["shop"]
+                    first_sheet.cell(row=row, column=current_col + 1).value = record["name"]
+                    first_sheet.cell(row=row, column=current_col + 2).value = record["price"]
+                    row += 1
+
+                current_col += 3  # Переход к следующей тройке колонок
+
+            parser_logger.info(f"{self.__class__.__name__}: Агрегация завершена, данные сохранены в '{self.excel_file}'")
 
             # Сохранение изменений
             self._save_to_excel()
-            parser_logger.info(
-                f"{self.__class__.__name__}: Агрегация завершена, данные сохранены в '{self.excel_file}'")
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при агрегации цен: {e}")

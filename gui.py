@@ -157,6 +157,11 @@ class ParserApp(ctk.CTk):
             self.log_to_console("No parsers selected.")
             return
 
+        # Define behavior for each shop
+        close_browser_behavior = {
+            "Aliexpress": False,  
+        }
+
         self.log_to_console(f"Selected parsers: {', '.join(selected_shops)}")
         for shop in selected_shops:
             shop_info = self.shop_map.get(shop)
@@ -175,22 +180,33 @@ class ParserApp(ctk.CTk):
                 self.log_to_console(f"No parser class found for shop: {shop}")
                 continue
 
-            self.log_to_console(f"Starting parser for: {site_name}")
+            # Get the close_browser_after_each_article value for the shop
+            close_browser_after_each_article = close_browser_behavior.get(shop, True)
+
+            self.log_to_console(f"Starting parser for: {site_name} (Close browser after each article: {close_browser_after_each_article})")
             try:
                 # Load articles from Excel
                 articles = list(Loading_Source_Data('temp_data.xlsx').loading_articles())
                 self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
 
                 # Create a single browser instance for the shop
-                parser_instance = parser_class(url=site_name, request="", items=[])
-                parser_instance._setup()  # Initialize WebDriver
+                if not close_browser_after_each_article:
+                    parser_instance = parser_class(url=site_name, request="", items=[])
+                    parser_instance._setup()  # Initialize WebDriver
 
-                # Parse each article using the same browser instance
+                # Parse each article
                 for article in tqdm.tqdm(articles, desc=f"Parsing {site_name}", unit="item"):
                     try:
+                        if close_browser_after_each_article:
+                            parser_instance = parser_class(url=site_name, request="", items=[])
                         parser_instance.request = article
                         parser_instance.parse()
                         self.log_to_console(f"Successfully parsed article: {article}")
+
+                        # Close the browser after each article if the parameter is set
+                        if close_browser_after_each_article:
+                            parser_instance._quit_driver()
+                            
                     except Exception as e:
                         self.log_to_console(f"Error parsing article {article}: {e}")
 
@@ -199,8 +215,9 @@ class ParserApp(ctk.CTk):
                 saver.process_data()
                 self.log_to_console(f"Saved parsed data to JSON folder: {json_folder}")
 
-                # Quit the browser after parsing all articles for the shop
-                parser_instance._quit_driver()
+                # Quit the browser after parsing all articles for the shop if not already closed
+                if not close_browser_after_each_article:
+                    parser_instance._quit_driver()
 
             except Exception as e:
                 self.log_to_console(f"Error parsing shop {shop}: {e}")
