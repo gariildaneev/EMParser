@@ -119,14 +119,14 @@ class YandexMarketParser(AbstractParser):
             try:
                 WebDriverWait(self.driver, 10).until(
                     EC.presence_of_element_located(
-                        (By.CSS_SELECTOR, '[data-apiary-widget-name="@marketfront/SerpEntity"]'))
+                        (By.CSS_SELECTOR, 'div._2rw4E._2O5qi'))
                 )
                 parser_logger.info(f"{self.__class__.__name__}: Найден список товаров")
             except Exception as e:
                 parser_logger.exception(f"{self.__class__.__name__}: Ошибка ожидания списка товаров: {e}")
                 return
 
-            titles = self.driver.find_elements(By.CSS_SELECTOR, '[data-apiary-widget-name="@marketfront/SerpEntity"]')
+            titles = self.driver.find_elements(By.CSS_SELECTOR, 'div._2rw4E._2O5qi')
             parser_logger.info(f"{self.__class__.__name__}: Найдено {len(titles)} карточек товаров")
 
             for title in titles:
@@ -152,7 +152,7 @@ class YandexMarketParser(AbstractParser):
                     # Ожидание и получение цены
                     try:
                         price_element = WebDriverWait(title, 5).until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, 'span.ds-text.ds-text_weight_bold'))
+                            EC.presence_of_element_located((By.CSS_SELECTOR, '<ds-text ds-text_weight_bold ds-text_color_price-term ds-text_typography_headline-5 ds-text_headline-5_tight ds-text_headline-5_bold'))
                         )
                         price = price_element.text.strip().replace("\u202f", "")  # Убираем неразрывные пробелы
                     except Exception:

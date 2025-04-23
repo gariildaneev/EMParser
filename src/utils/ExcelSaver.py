@@ -132,26 +132,33 @@ class ExcelSaver:
             for article in self.articles:
                 col_letter = get_column_letter(current_col)
                 next_col_letter = get_column_letter(current_col + 1)
+                link_col_letter = get_column_letter(current_col + 2)
 
-                # Объединяем две колонки для артикула
-                ws.merge_cells(f"{col_letter}1:{next_col_letter}1")
+                # Объединяем три колонки для артикула
+                ws.merge_cells(f"{col_letter}1:{link_col_letter}1")
                 ws[f"{col_letter}1"] = article
                 ws[f"{col_letter}1"].alignment = Alignment(horizontal="center", vertical="center")
 
-                # Записываем заголовки "name" и "price"
+                # Записываем заголовки "name", "price" и "link"
                 ws[f"{col_letter}2"] = "name"
                 ws[f"{next_col_letter}2"] = "price"
+                ws[f"{link_col_letter}2"] = "link"
 
                 row = 3  # Начальная строка для данных
                 for item in self.data.get("Данные", []):
                     if article in item:
                         description = item[article].get("description", "Не найдено")
                         price = item[article].get("price", "Не найдено")
+                        link = item[article].get("link", "")
                         ws[f"{col_letter}{row}"] = description
                         ws[f"{next_col_letter}{row}"] = price
+                        ws[f"{link_col_letter}{row}"] = link
+                        if link:  # Если есть ссылка, делаем её кликабельной
+                            ws[f"{link_col_letter}{row}"].hyperlink = link
+                            ws[f"{link_col_letter}{row}"].style = "Hyperlink"
                         row += 1
 
-                current_col += 2  # Переход к следующей паре колонок
+                current_col += 3  # Переход к следующей тройке колонок
 
             parser_logger.info(f"{self.__class__.__name__}: Создан новый лист '{sheet_name}' в заданном формате")
 
@@ -217,7 +224,7 @@ class ExcelSaver:
                 sheet = self.workbook[sheet_name]
                 parser_logger.info(f"{self.__class__.__name__}: Обрабатываем лист '{sheet_name}'")
 
-                for col in range(1, sheet.max_column + 1, 2):  # Обрабатываем пары колонок
+                for col in range(1, sheet.max_column + 1, 3):  # Обрабатываем тройки колонок
                     article_cell = sheet.cell(row=1, column=col)
                     if not article_cell.value:
                         continue
@@ -233,17 +240,19 @@ class ExcelSaver:
                     for data_row in range(3, sheet.max_row + 1):
                         name = sheet.cell(row=data_row, column=col).value
                         price = sheet.cell(row=data_row, column=col + 1).value
+                        link = sheet.cell(row=data_row, column=col + 2).value
                         if name or price:  # Добавляем только если есть данные
                             aggregated_data[article].append({
                                 "shop": shop_name,
                                 "name": name,
-                                "price": price
+                                "price": price,
+                                "link": link
                             })
 
             # Записываем данные на первый лист
             current_col = 1
             for article, records in aggregated_data.items():
-                # Объединяем три колонки для артикула
+                # Объединяем четыре колонки для артикула
                 first_sheet.merge_cells(
                     start_row=1, start_column=current_col, end_row=1, end_column=current_col + 3
                 )
@@ -263,7 +272,7 @@ class ExcelSaver:
                     first_sheet.cell(row=row, column=current_col + 1).value = record["name"]
                     first_sheet.cell(row=row, column=current_col + 2).value = record["price"]
                     link_cell = first_sheet.cell(row=row, column=current_col + 3)
-                    link_cell.value = record.get("link", "")
+                    link_cell.value = record["link"]
                     if link_cell.value:  # Если есть ссылка, делаем её кликабельной
                         link_cell.hyperlink = link_cell.value
                         link_cell.style = "Hyperlink"
@@ -271,18 +280,11 @@ class ExcelSaver:
 
                 current_col += 4  # Переход к следующей четвёрке колонок
 
-            # Автоматическое изменение ширины колонок
-            for col in first_sheet.columns:
-                max_length = 0
-                col_letter = col[0].column_letter  # Получаем букву колонки
-                for cell in col:
-                    try:
-                        if cell.value:
-                            max_length = max(max_length, len(str(cell.value)))
-                    except:
-                        pass
-                adjusted_width = max_length + 2
-                first_sheet.column_dimensions[col_letter].width = adjusted_width
+            # Устанавливаем фиксированную ширину для всех колонок
+            fixed_width = 100
+            for col_idx in range(1, first_sheet.max_column + 1):
+                col_letter = get_column_letter(col_idx)  # Получаем букву колонки по индексу
+                first_sheet.column_dimensions[col_letter].width = fixed_width
 
             parser_logger.info(f"{self.__class__.__name__}: Агрегация завершена, данные сохранены в '{self.excel_file}'")
 

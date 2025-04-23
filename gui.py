@@ -25,7 +25,7 @@ class ParserApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Shops Parser")
-        self.geometry("800x600")
+        self.geometry("1000x600")
 
         # Variables
         self.selected_shops = []
@@ -211,6 +211,7 @@ class ParserApp(ctk.CTk):
                         if close_browser_after_each_article:
                             parser_instance = parser_class(url=site_name, request="", items=[])
                         parser_instance.request = article
+                        parser_instance.items = [article]
                         parser_instance.parse()
                         self.log_to_console(f"Successfully parsed article: {article}")
 
