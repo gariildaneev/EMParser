@@ -66,16 +66,18 @@ class ETMParser(AbstractParser):
             # Ввод поискового запроса
             try:
                 search_input = self.driver.find_element(By.CSS_SELECTOR,
-                                                        '[class="MuiInputBase-input MuiInputBase-inputAdornedStart mui-style-vnciqk"]')
+                                                        '[class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd mui-style-17dpdqx"]') 
                 search_input.send_keys(self.request)
                 parser_logger.info(f"{self.__class__.__name__}: Запрос '{self.request}' введён")
             except Exception:
                 parser_logger.warning(f"{self.__class__.__name__}: Поле ввода запроса не найдено")
 
+            self.driver.implicitly_wait(2)  # Установка неявного ожидания
+
             # Нажатие кнопки "Ваш город -> ДА"
-            try:
+            try: 
                 confirm_city_button = self.driver.find_element(By.CSS_SELECTOR,
-                                                               '[class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation tss-1gg6ugo-root-yellow-button mui-style-12bvbwy"]')
+                                                               '[data-testid="okay-button"]')
                 confirm_city_button.click()
                 parser_logger.info(f"{self.__class__.__name__}: Кнопка 'Ваш город -> ДА' нажата")
             except Exception:
@@ -84,7 +86,7 @@ class ETMParser(AbstractParser):
             # Нажатие кнопки "Использовать куки -> Ок"
             try:
                 cookie_button = self.driver.find_element(By.CSS_SELECTOR,
-                                                         '[class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-fullWidth tss-xu4l57-root-contained mui-style-1l3vhg0"]')
+                                                         '[data-testid="understand-button"]')
                 cookie_button.click()
                 parser_logger.info(f"{self.__class__.__name__}: Кнопка 'Использовать куки -> Ок' нажата")
             except Exception:
@@ -93,7 +95,7 @@ class ETMParser(AbstractParser):
             # Нажатие кнопки "Найти"
             try:
                 search_button = self.driver.find_element(By.CSS_SELECTOR,
-                                                         '[class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation tss-9l9isw-root-contained-search_button mui-style-12bvbwy"]')
+                                                         '[data-testid="catalog-search-button-adaptive"]')
                 search_button.click()
                 parser_logger.info(f"{self.__class__.__name__}: Кнопка 'Найти' нажата")
             except Exception:
@@ -113,101 +115,113 @@ class ETMParser(AbstractParser):
             scroll_count = 0
 
             # Уменьшаем масштаб страницы для захвата большего количества товаров
-            self.driver.execute_script("document.body.style.zoom='0.5';")
+            self.driver.execute_script("document.body.style.zoom='0.25';")
             parser_logger.debug(
                 f"{self.__class__.__name__}: Масштаб страницы уменьшен для отображения большего количества карточек")
 
             first_cycle = True
             previous_product_code = ''
 
-            while scroll_count < max_scrolls:
-                try:
-                    titles = WebDriverWait(self.driver, 5).until(
-                        EC.presence_of_all_elements_located(
-                            (By.CSS_SELECTOR, '.tss-1n3o4n4-catalog_item.MuiBox-root.mui-style-0'))
-                    )
-                    parser_logger.info(f"{self.__class__.__name__}: Найдено {len(titles)} карточек товаров")
-                except Exception as e:
-                    parser_logger.exception(f"{self.__class__.__name__}: Ошибка поиска карточек товара: {e}")
-                    break
+            #while scroll_count < max_scrolls:
+            try:
+                titles = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located(
+                        (By.CSS_SELECTOR, '[class="tss-o60ib4-grid_item"]'))
+                )
+                parser_logger.info(f"{self.__class__.__name__}: Найдено {len(titles)} карточек товаров")
+            except Exception as e:
+                parser_logger.exception(f"{self.__class__.__name__}: Ошибка поиска карточек товара: {e}")
+                #break
 
-                for title in titles:
+            for title in titles:
+                try:
                     try:
-                        try:
-                            description = title.find_element(By.CSS_SELECTOR,
-                                                             '[class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover tss-lrg5ji-root-blue-title mui-style-i8aqv9"]').get_attribute(
-                                'innerText')
-                        except Exception:
-                            description = 'Описание не найдено'
-                            parser_logger.warning(f"{self.__class__.__name__}: Описание товара не найдено")
+                        description = title.find_element(By.CSS_SELECTOR,
+                                                            '[class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover tss-lrg5ji-root-blue-title mui-style-i8aqv9"]').get_attribute(
+                            'innerText')
+                    except Exception:
+                        description = 'Описание не найдено'
+                        parser_logger.warning(f"{self.__class__.__name__}: Описание товара не найдено")
 
-                        try:
-                            url = title.find_element(By.CSS_SELECTOR,
-                                                     'a.MuiTypography-root.MuiTypography-inherit.MuiLink-root.MuiLink-underlineHover').get_attribute(
-                                'href')
-                        except Exception:
-                            url = 'Ссылка не найдена'
-                            parser_logger.warning(f"{self.__class__.__name__}: Ссылка на товар не найдена")
+                    try:
+                        url = title.find_element(By.CSS_SELECTOR,
+                                                    'a.MuiTypography-root.MuiTypography-inherit.MuiLink-root.MuiLink-underlineHover').get_attribute(
+                            'href')
+                    except Exception:
+                        url = 'Ссылка не найдена'
+                        parser_logger.warning(f"{self.__class__.__name__}: Ссылка на товар не найдена")
 
-                        try:
-                            price = WebDriverWait(title, 5).until(
-                                EC.presence_of_element_located(
-                                    (By.CSS_SELECTOR, 'p[data-testid="catalog-list-item-price-details-0"]'))
-                            ).text.replace(' ₽/шт', '').replace(' ', '')
-                        except Exception:
-                            price = 'Цена не найдена'
-                            parser_logger.warning(f"{self.__class__.__name__}: Цена товара не найдена")
+                    try:
+                        price = WebDriverWait(title, 5).until(
+                            EC.presence_of_element_located(
+                                (By.CSS_SELECTOR, '[class="MuiTypography-root MuiTypography-title4 tss-1mz6fdu-priceColor-priceCount mui-style-1rtbk0o"]'))
+                        ).text.replace(' ₽/шт', '').replace(' ', '')
+                    except Exception:
+                        price = 'Цена не найдена'
+                        parser_logger.warning(f"{self.__class__.__name__}: Цена товара не найдена")
 
-                        try:
-                            product_code = title.find_element(By.CSS_SELECTOR,
-                                                              '[class="tss-ao7i46-text MuiBox-root mui-style-0"]').text
-                        except Exception:
-                            product_code = 'Код продукта не найден'
-                            parser_logger.warning(f"{self.__class__.__name__}: Код продукта не найден")
+                    try:
+                        product_code = title.find_element(By.CSS_SELECTOR,
+                                                            '[class="tss-ao7i46-text MuiBox-root mui-style-0"]').text
+                    except Exception:
+                        product_code = 'Код продукта не найден'
+                        parser_logger.warning(f"{self.__class__.__name__}: Код продукта не найден")
 
-                        try:
-                            article = title.find_element(By.CSS_SELECTOR, '[class="tss-9cdrin-good_descr_value"]').text
-                        except Exception:
-                            article = 'Артикул не найден'
-                            parser_logger.warning(f"{self.__class__.__name__}: Артикул не найден")
+                    try:
+                        article = title.find_element(By.CSS_SELECTOR, '[class="tss-9cdrin-good_descr_value"]').text
+                    except Exception:
+                        article = 'Артикул не найден'
+                        parser_logger.warning(f"{self.__class__.__name__}: Артикул не найден")
 
-                        data = {
-                            'description': description,
-                            'url': url,
-                            'price': price,
-                            'product_code': product_code,
-                            'article': article
-                        }
+                    data = {
+                        'description': description,
+                        'url': url,
+                        'price': price,
+                        'product_code': product_code,
+                        'article': article
+                    }
 
-                        if first_cycle:
-                            self.new_data.append(data)
-                            parser_logger.debug(f"{self.__class__.__name__}: Добавлена карточка товара: {data}")
-                        else:
-                            if previous_product_code != product_code:
-                                self.new_data.append(data)
-                                parser_logger.debug(
-                                    f"{self.__class__.__name__}: Добавлена новая карточка товара: {data}")
-
-                    except Exception as e:
-                        parser_logger.exception(f"{self.__class__.__name__}: Ошибка парсинга карточек товара: {e}")
-                        continue
-
-                try:
-                    # Прокрутка страницы вниз
-                    card_height = self.driver.execute_script(
-                        "return document.querySelector('.tss-1n3o4n4-catalog_item.MuiBox-root.mui-style-0').offsetHeight;")
-                    self.driver.execute_script(f"window.scrollBy(0, {card_height});")
-                    parser_logger.debug(f"{self.__class__.__name__}: Прокрутка страницы вниз (шаг {scroll_count + 1})")
-
-                    sleep(1)  # Пауза для подгрузки контента
-                    scroll_count += 1
+                    #if first_cycle:
+                    self.new_data.append(data)
+                    parser_logger.debug(f"{self.__class__.__name__}: Добавлена карточка товара: {data}")
+                        # Для прокрутки страницы вниз
+                        # target_testid = "catalog-list-item-1"
+                        # --- Используем CSS Selector (Рекомендуется) ---
+                        # stable_selector = f"[data-testid='{target_testid}']"
+                        # selector_tuple = (By.CSS_SELECTOR, stable_selector)
+                        # element_present = WebDriverWait(self.driver, 10).until(
+                        #     EC.presence_of_element_located(selector_tuple)
+                        # )
+                        # js_script = "return arguments[0] ? arguments[0].offsetHeight : null;"
+                        # card_height = self.driver.execute_script(js_script, element_present)
+                        
+                        # if card_height is not None:
+                        #     print(f"Высота элемента с {target_testid}: {card_height}")
+                        # else:
+                        #     print("Не удалось получить высоту: JS вернул null (хотя элемент был найден).")
+                    #else:
+                    #    if previous_product_code != product_code:
+                    #        self.new_data.append(data)
+                    #        parser_logger.debug(
+                    #            f"{self.__class__.__name__}: Добавлена новая карточка товара: {data}")
 
                 except Exception as e:
-                    parser_logger.exception(f"{self.__class__.__name__}: Ошибка прокрутки страницы: {e}")
-                    break
+                    parser_logger.exception(f"{self.__class__.__name__}: Ошибка парсинга карточек товара: {e}")
+                    continue
 
-                previous_product_code = product_code
-                first_cycle = False
+            # try:
+            #     self.driver.execute_script(f"window.scrollBy(0, {card_height});")
+            #     parser_logger.debug(f"{self.__class__.__name__}: Прокрутка страницы вниз (шаг {scroll_count + 1})")
+
+            #     sleep(1)  # Пауза для подгрузки контента
+            #     scroll_count += 1
+
+            # except Exception as e:
+            #     parser_logger.exception(f"{self.__class__.__name__}: Ошибка прокрутки страницы: {e}")
+            #     break
+
+            previous_product_code = product_code
+            first_cycle = False
 
             parser_logger.info(f"{self.__class__.__name__}: Парсинг завершён, обработано {len(self.new_data)} карточек")
 
@@ -246,22 +260,3 @@ class ETMParser(AbstractParser):
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка во время парсинга: {e}")
-
-# if __name__ == '__main__':
-#     articles = list(Loading_Source_Data('../../Рабочий.xlsx').loading_articles())
-#     AbstractParser.clear_terminal()
-#     progress_bar = tqdm(articles, desc="Обработка артикулов", unit="шт", ncols=80, ascii=True)
-#
-#     for article in progress_bar:
-#         try:
-#             sys.stdout.flush()  # Принудительное обновление потока (важно для PyCharm!)
-#             print(f"\n\033[1;32;4mПарсится сайт ETM\033[0m\n")
-#             print(f"\n\033[1;32;4mПоиск артикула: {article}\033[0m\n")
-#
-#             parser = ETMParser(url='https://www.etm.ru/',
-#                                         request=article,
-#                                         items=[article, 'Можно добавить что угодно'])
-#             parser.parse()
-#             parser.clear_terminal()
-#         except Exception as e:
-#             print('Ошибка при создании объекта парсинга')

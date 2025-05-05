@@ -12,6 +12,7 @@ import platform
 import undetected_chromedriver as uc
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.bidi.cdp import logger
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 
@@ -86,21 +87,19 @@ class AbstractParser(ABC):
             # Установка размера окна
             width = random.randint(768, 1080)
             height = random.randint(768, 1080)
-            
-            #chrome_options.add_argument(f"user-agent={user_agent}")
             chrome_options.add_argument(f"--window-size={width},{height}")
-            # Оптимизация запуска браузера (можно включить при необходимости)
             chrome_options.add_argument("--disable-extensions")  # Отключает расширения
             chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-            
-            
-            # chrome_options.add_argument("--disable-gpu")  # Отключает использование GPU (важно для headless)
             chrome_options.add_argument("--no-sandbox")  # Отключает режим песочницы (ускоряет запуск)
 
-            # Запуск Chrome
+            # Запуск Chrome с использованием webdriver-manager
             parser_logger.info(f"{self.__class__.__name__}: Запуск Chrome WebDriver")
-            self.driver = uc.Chrome(options=chrome_options, headless=False, use_subprocess=False,
-                                    version_main=self.version_chrome)
+            self.driver = uc.Chrome(
+                options=chrome_options,
+                headless=False,
+                use_subprocess=False,
+                driver_executable_path=ChromeDriverManager().install()  # Automatically manage ChromeDriver
+            )
 
             parser_logger.info(f"{self.__class__.__name__}: Chrome WebDriver успешно запущен")
 

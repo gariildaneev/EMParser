@@ -161,22 +161,3 @@ class eBayParser(AbstractParser):
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка во время парсинга: {e}")
-
-# if __name__ == '__main__':
-#     articles = list(Loading_Source_Data('../../Рабочий.xlsx').loading_articles())
-#     AbstractParser.clear_terminal()
-#     progress_bar = tqdm(articles, desc="Обработка артикулов", unit="шт", ncols=80, ascii=True)
-#
-#     for article in progress_bar:
-#         try:
-#             sys.stdout.flush()  # Принудительное обновление потока (важно для PyCharm!)
-#             print(f"\n\033[1;32;4mПарсится сайт eBay\033[0m\n")
-#             print(f"\n\033[1;32;4mПоиск артикула: {article}\033[0m\n")
-#
-#             parser = eBayParser(url='https://www.ebay.com/',
-#                                request=article,
-#                                items=[article, 'Можно добавить что угодно'])
-#             parser.parse()
-#             parser.clear_terminal()
-#         except Exception as e:
-#             print('Ошибка при создании объекта парсинга')

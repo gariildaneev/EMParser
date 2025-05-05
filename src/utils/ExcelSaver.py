@@ -8,7 +8,10 @@ from src.logger.logger import parser_logger
 
 
 class ExcelSaver:
-    def __init__(self, excel_file="temp_data.xlsx", json_folder="json_data"):
+    # Add a class-level flag to track if the file has been cleaned
+    _is_file_cleaned = False
+
+    def __init__(self, excel_file="output.xlsx", json_folder="json_data", articles=None):
         """Инициализирует объект для работы с Excel и JSON-данными."""
         
         try:
@@ -16,17 +19,14 @@ class ExcelSaver:
 
             self.excel_file = excel_file  # Фиксированный путь к Excel-файлу
             self.json_folder = json_folder
-            self.df = None  # DataFrame для работы с Excel
+            self.articles = articles or []  # Список артикулов передаётся из GUI
             self.workbook = None  # Workbook для работы с несколькими листами
-            self.articles = []  # Список артикулов из первого столбца
 
             parser_logger.debug(
-                f"{self.__class__.__name__}: Экземпляр создан с excel_file='{self.excel_file}', json_folder='{self.json_folder}'")
+                f"{self.__class__.__name__}: Экземпляр создан с excel_file='{self.excel_file}', json_folder='{self.json_folder}', articles={len(self.articles)}")
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка при инициализации класса: {e}")
-
-    import os
 
     def _get_latest_json(self, folder):
         """Находит самый свежий JSON-файл в указанной папке."""
@@ -83,23 +83,13 @@ class ExcelSaver:
             return {}
 
     def _open_excel(self):
-        """Открывает существующий Excel-файл и загружает артикулы с первого листа."""
+        """Открывает существующий Excel-файл."""
         
         try:
             parser_logger.info(f"{self.__class__.__name__}: Открытие Excel-файла '{self.excel_file}'")
 
             # Загружаем книгу
             self.workbook = load_workbook(self.excel_file)
-            sheet_name = self.workbook.sheetnames[0]  # Первый лист
-            parser_logger.debug(f"{self.__class__.__name__}: Загружается лист '{sheet_name}'")
-
-            # Загружаем DataFrame
-            self.df = pd.read_excel(self.excel_file, sheet_name=sheet_name, engine='openpyxl', header=None)
-
-            # Извлекаем артикулы
-            self.articles = self.df.iloc[:, 0].dropna().astype(str).tolist()
-            parser_logger.info(
-                f"{self.__class__.__name__}: Excel-файл загружен, считано {len(self.articles)} артикулов")
 
         except FileNotFoundError:
             parser_logger.warning(f"{self.__class__.__name__}: Файл '{self.excel_file}' не найден, процесс остановлен")
@@ -149,7 +139,7 @@ class ExcelSaver:
                     if article in item:
                         description = item[article].get("description", "Не найдено")
                         price = item[article].get("price", "Не найдено")
-                        link = item[article].get("link", "")
+                        link = item[article].get("url", "")
                         ws[f"{col_letter}{row}"] = description
                         ws[f"{next_col_letter}{row}"] = price
                         ws[f"{link_col_letter}{row}"] = link
@@ -183,17 +173,27 @@ class ExcelSaver:
                 f"{self.__class__.__name__}: Ошибка при сохранении в Excel-файл '{self.excel_file}': {e}")
 
     def process_data(self):
-        """Выполняет полный цикл обработки данных: загрузка, обновление и сохранение."""
-        
+        """Performs the full data processing cycle: loading, updating, and saving."""
         try:
             parser_logger.info(f"{self.__class__.__name__}: Начало обработки данных")
 
+            # Clean the Excel file only if it hasn't been cleaned yet
+            if not ExcelSaver._is_file_cleaned:
+                parser_logger.info(f"{self.__class__.__name__}: Очистка файла '{self.excel_file}'")
+                self.workbook = Workbook()  # Create a new workbook
+                self.workbook.save(self.excel_file)  # Save the empty workbook
+                parser_logger.info(f"{self.__class__.__name__}: Файл '{self.excel_file}' успешно очищен")
+                ExcelSaver._is_file_cleaned = True  # Mark the file as cleaned
+
+            # Open the existing Excel file
             self._open_excel()
             parser_logger.info(f"{self.__class__.__name__}: Excel-файл успешно загружен")
 
+            # Create a new sheet with JSON data
             self._create_json_sheet()
             parser_logger.info(f"{self.__class__.__name__}: Новый лист с JSON-данными успешно создан")
 
+            # Save changes to the Excel file
             self._save_to_excel()
             parser_logger.info(f"{self.__class__.__name__}: Изменения сохранены в Excel-файл")
 
@@ -279,12 +279,6 @@ class ExcelSaver:
                     row += 1
 
                 current_col += 4  # Переход к следующей четвёрке колонок
-
-            # Устанавливаем фиксированную ширину для всех колонок
-            fixed_width = 100
-            for col_idx in range(1, first_sheet.max_column + 1):
-                col_letter = get_column_letter(col_idx)  # Получаем букву колонки по индексу
-                first_sheet.column_dimensions[col_letter].width = fixed_width
 
             parser_logger.info(f"{self.__class__.__name__}: Агрегация завершена, данные сохранены в '{self.excel_file}'")
 

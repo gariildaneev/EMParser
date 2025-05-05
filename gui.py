@@ -29,23 +29,15 @@ class ParserApp(ctk.CTk):
 
         # Variables
         self.selected_shops = []
-        self.original_file_path = Path(__file__).parent / "data.xlsx"  # Original file
-        self.temp_file_path = Path(__file__).parent / "temp_data.xlsx"  # Temporary file
+        self.original_file_path = Path(__file__).parent / "data.xlsx"  # Original file for user input
+        self.output_file_path = Path(__file__).parent / "output.xlsx"  # Output file for aggregation results
         self.workbook = None  # To store the loaded workbook
 
-        # Create a temporary copy of the original file at startup
-        self.create_temp_copy()
+        # Handle window close event
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         # Layout
         self.create_widgets()
-
-    def create_temp_copy(self):
-        """Create a temporary copy of the original Excel file."""
-        if self.original_file_path.exists():
-            shutil.copy(self.original_file_path, self.temp_file_path)
-            self.after(100, lambda: self.log_to_console("Created temporary copy of the original file."))
-        else:
-            self.after(100, lambda: self.log_to_console("Error: Original Excel file not found."))
 
     def create_widgets(self):
         # Title Label
@@ -77,8 +69,11 @@ class ParserApp(ctk.CTk):
         excel_frame = ctk.CTkFrame(self)
         excel_frame.pack(pady=10, padx=20, fill="x")
 
-        open_excel_button = ctk.CTkButton(excel_frame, text="Открыть .xlsx файл ", command=self.open_excel)
+        open_excel_button = ctk.CTkButton(excel_frame, text="Открыть файл с артикулами", command=self.open_excel)
         open_excel_button.pack(side="left", padx=10)
+
+        view_results_button = ctk.CTkButton(excel_frame, text="Посмотреть результат", command=self.view_results)
+        view_results_button.pack(side="left", padx=10)
 
         download_results_button = ctk.CTkButton(excel_frame, text="Скачать результаты", command=self.download_results)
         download_results_button.pack(side="left", padx=10)
@@ -106,49 +101,56 @@ class ParserApp(ctk.CTk):
         print(f"{shop_name} toggled")
 
     def open_excel(self):
+        """Open the file containing articles for search."""
         try:
-            # Open the temporary file in the default application (e.g., MS Excel)
-            if self.temp_file_path.exists():
+            if self.original_file_path.exists():
                 if platform.system() == "Windows":
-                    os.startfile(self.temp_file_path)  # For Windows
+                    os.startfile(self.original_file_path)  # For Windows
                 elif platform.system() == "Darwin":  # macOS
-                    os.system(f"open {self.temp_file_path}")
+                    os.system(f"open {self.original_file_path}")
                 else:  # Linux
-                    os.system(f"xdg-open {self.temp_file_path}")
+                    os.system(f"xdg-open {self.original_file_path}")
 
-                # Reload the workbook from the temporary file
-                self.reload_workbook()
-                self.log_to_console(f"Opened Excel file: {self.temp_file_path}")
+                self.log_to_console(f"Opened file with articles: {self.original_file_path}")
             else:
-                self.log_to_console("Error: Temporary Excel file not found.")
+                self.log_to_console("Error: File with articles not found.")
         except Exception as e:
-            self.log_to_console(f"Error opening Excel file: {e}")
+            self.log_to_console(f"Error opening file with articles: {e}")
 
-    def reload_workbook(self):
-        """Reload the workbook from the temporary file."""
+    def view_results(self):
+        """Open the file to view aggregated results."""
         try:
-            self.workbook = openpyxl.load_workbook(self.temp_file_path)
-            self.log_to_console("Reloaded workbook from the temporary file.")
+            if self.output_file_path.exists():
+                if platform.system() == "Windows":
+                    os.startfile(self.output_file_path)  # For Windows
+                elif platform.system() == "Darwin":  # macOS
+                    os.system(f"open {self.output_file_path}")
+                else:  # Linux
+                    os.system(f"xdg-open {self.output_file_path}")
+
+                self.log_to_console(f"Opened results file: {self.output_file_path}")
+            else:
+                self.log_to_console("Error: Results file not found.")
         except Exception as e:
-            self.log_to_console(f"Error reloading workbook: {e}")
+            self.log_to_console(f"Error opening results file: {e}")
 
     def download_results(self):
+        """Download the aggregated results."""
         try:
-            # Reload the workbook to ensure it reflects the latest changes
-            self.reload_workbook()
-
-            # Save the updated Excel file to the Downloads folder
             downloads_folder = Path.home() / "Downloads"
             results_file_path = downloads_folder / "results.xlsx"
 
-            if self.workbook:
-                # Save the workbook to the temporary file first
-                self.workbook.save(self.temp_file_path)
-                # Then copy it to the Downloads folder
-                shutil.copy(self.temp_file_path, results_file_path)
+            # Handle duplicate filenames by appending a number
+            counter = 1
+            while results_file_path.exists():
+                results_file_path = downloads_folder / f"results({counter}).xlsx"
+                counter += 1
+
+            if self.output_file_path.exists():
+                shutil.copy(self.output_file_path, results_file_path)
                 self.log_to_console(f"Results downloaded to: {results_file_path}")
             else:
-                self.log_to_console("Error: No workbook loaded to download.")
+                self.log_to_console("Error: Results file not found.")
         except Exception as e:
             self.log_to_console(f"Error downloading results: {e}")
 
@@ -169,78 +171,78 @@ class ParserApp(ctk.CTk):
         }
 
         self.log_to_console(f"Selected parsers: {', '.join(selected_shops)}")
-        for shop in selected_shops:
-            shop_info = self.shop_map.get(shop)
-            if not shop_info:
-                self.log_to_console(f"Unknown shop: {shop}")
-                continue
-
-            site_name = shop_info["site_name"]
-            json_folder = shop_info["json_folder"]
-            parser_class = {
-                "Bonpet.tech": BonpetParser,
-                "Aliexpress": AliexpressParser,
-                "ChipDip": ChipDipParser,
-                "ETM": ETMParser,
-                "eBay": eBayParser,
-                "Zakupki": ZakupkiParser,
-                "YandexMarket": YandexMarketParser
-            }.get(shop)
-
-            if not parser_class:
-                self.log_to_console(f"No parser class found for shop: {shop}")
-                continue
-
-            # Get the close_browser_after_each_article value for the shop
-            close_browser_after_each_article = close_browser_behavior.get(shop, True)
-
-            self.log_to_console(f"Starting parser for: {site_name} (Close browser after each article: {close_browser_after_each_article})")
-            try:
-                # Load articles from Excel
-                articles = list(Loading_Source_Data('temp_data.xlsx').loading_articles())
-                self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
-
-                # Create a single browser instance for the shop
-                if not close_browser_after_each_article:
-                    parser_instance = parser_class(url=site_name, request="", items=[])
-                    parser_instance._setup()  # Initialize WebDriver
-
-                # Parse each article
-                for article in tqdm.tqdm(articles, desc=f"Parsing {site_name}", unit="item"):
-                    try:
-                        if close_browser_after_each_article:
-                            parser_instance = parser_class(url=site_name, request="", items=[])
-                        parser_instance.request = article
-                        parser_instance.items = [article]
-                        parser_instance.parse()
-                        self.log_to_console(f"Successfully parsed article: {article}")
-
-                        # Close the browser after each article if the parameter is set
-                        if close_browser_after_each_article:
-                            parser_instance._quit_driver()
-                            
-                    except Exception as e:
-                        self.log_to_console(f"Error parsing article {article}: {e}")
-
-                # Save parsed data to JSON
-                saver = ExcelSaver(json_folder=json_folder)
-                saver.process_data()
-                self.log_to_console(f"Saved parsed data to JSON folder: {json_folder}")
-
-                # Quit the browser after parsing all articles for the shop if not already closed
-                if not close_browser_after_each_article:
-                    parser_instance._quit_driver()
-
-            except Exception as e:
-                self.log_to_console(f"Error parsing shop {shop}: {e}")
-
-        # Aggregate all data into one Excel file
         try:
-            saver_aggregate = ExcelSaver()
-            saver_aggregate.aggregate_prices_to_first_sheet()
-            self.log_to_console("All data successfully aggregated into Excel.")
+            # Load articles from data.xlsx
+            articles = list(Loading_Source_Data(self.original_file_path).loading_articles())
+            self.log_to_console(f"Loaded {len(articles)} articles for parsing.")
+
+            for shop in selected_shops:
+                shop_info = self.shop_map.get(shop)
+                if not shop_info:
+                    self.log_to_console(f"Unknown shop: {shop}")
+                    continue
+
+                site_name = shop_info["site_name"]
+                json_folder = shop_info["json_folder"]
+                parser_class = {
+                    "Bonpet.tech": BonpetParser,
+                    "Aliexpress": AliexpressParser,
+                    "ChipDip": ChipDipParser,
+                    "ETM": ETMParser,
+                    "eBay": eBayParser,
+                    "Zakupki": ZakupkiParser,
+                    "YandexMarket": YandexMarketParser
+                }.get(shop)
+
+                if not parser_class:
+                    self.log_to_console(f"No parser class found for shop: {shop}")
+                    continue
+
+                close_browser_after_each_article = close_browser_behavior.get(shop, True)
+
+                self.log_to_console(f"Starting parser for: {site_name} (Close browser after each article: {close_browser_after_each_article})")
+                try:
+                    # Create a single browser instance for the shop
+                    if not close_browser_after_each_article:
+                        parser_instance = parser_class(url=site_name, request="", items=[])
+                        parser_instance._setup()  # Initialize WebDriver
+
+                    # Parse each article
+                    for article in tqdm.tqdm(articles, desc=f"Parsing {site_name}", unit="item"):
+                        try:
+                            if close_browser_after_each_article:
+                                parser_instance = parser_class(url=site_name, request="", items=[])
+                            parser_instance.request = article
+                            parser_instance.items = [article]
+                            parser_instance.parse()
+                            self.log_to_console(f"Successfully parsed article: {article}")
+
+                            if close_browser_after_each_article:
+                                parser_instance._quit_driver()
+                        except Exception as e:
+                            self.log_to_console(f"Error parsing article {article}: {e}")
+
+                    # Save parsed data to JSON
+                    saver = ExcelSaver(json_folder=json_folder, articles=articles, excel_file=self.output_file_path)
+                    saver.process_data()
+                    self.log_to_console(f"Saved parsed data to JSON folder: {json_folder}")
+
+                    if not close_browser_after_each_article:
+                        parser_instance._quit_driver()
+
+                except Exception as e:
+                    self.log_to_console(f"Error parsing shop {shop}: {e}")
+
+            # Aggregate all data into one Excel file
+            try:
+                saver_aggregate = ExcelSaver(excel_file=self.output_file_path, articles=articles)
+                saver_aggregate.aggregate_prices_to_first_sheet()
+                self.log_to_console("All data successfully aggregated into Excel.")
+            except Exception as e:
+                self.log_to_console(f"Error aggregating data into Excel: {e}")
+
         except Exception as e:
-            self.log_to_console(f"Error aggregating data into Excel: {e}")
+            self.log_to_console(f"Error loading articles: {e}")
 
     def log_to_console(self, message):
         """Log a message to the console output."""
@@ -251,6 +253,11 @@ class ParserApp(ctk.CTk):
             self.console_output.see("end")
         else:
             print(f"Console not initialized yet: {message}")
+
+    def on_close(self):
+        """Handle the application close event."""
+        self.destroy()  # Destroy the GUI
+        sys.exit(0)  # Ensure the program exits completely
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 import json
 import os
-import sys
+import re
 from tqdm import tqdm
 from datetime import datetime
 
@@ -152,26 +152,21 @@ class YandexMarketParser(AbstractParser):
                     # Ожидание и получение цены
                     try:
                         price_element = WebDriverWait(title, 5).until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, '<ds-text ds-text_weight_bold ds-text_color_price-term ds-text_typography_headline-5 ds-text_headline-5_tight ds-text_headline-5_bold'))
+                            EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-baobab-name='price'] span.ds-visuallyHidden"))
                         )
-                        price = price_element.text.strip().replace("\u202f", "")  # Убираем неразрывные пробелы
+                        price = re.sub(r'\D', '', price_element.text.strip())
+
+                        raw_text = price_element.text
+                        print(f"Найден текст: '{raw_text}'")
                     except Exception:
                         price = "Цена не найдена"
                         parser_logger.warning(f"{self.__class__.__name__}: Цена товара не найдена")
-
-                    # Получение ID карточки (из <article>)
-                    try:
-                        card_id = title.find_element(By.TAG_NAME, "article").get_attribute("id")
-                    except Exception:
-                        card_id = "ID не найден"
-                        parser_logger.warning(f"{self.__class__.__name__}: ID товара не найден")
 
                     # Формирование данных
                     data = {
                         'description': description,
                         'url': url,
-                        'price': price,
-                        'card_id': card_id
+                        'price': price
                     }
 
                     parser_logger.debug(f"{self.__class__.__name__}: Карточка обработана: {data}")
@@ -222,24 +217,5 @@ class YandexMarketParser(AbstractParser):
 
         except Exception as e:
             parser_logger.exception(f"{self.__class__.__name__}: Ошибка во время парсинга: {e}")
-
-# if __name__ == '__main__':
-#     try:
-#         articles = list(Loading_Source_Data('../../Рабочий.xlsx').loading_articles())
-#         AbstractParser.clear_terminal()
-#         progress_bar = tqdm(articles, desc="Обработка артикулов", unit="шт", ncols=80, ascii=True)
-#
-#         for article in progress_bar:
-#             sys.stdout.flush()  # Принудительное обновление потока (важно для PyCharm!)
-#             print(f"\n\033[1;32;4mПарсится сайт Yandex Market\033[0m\n")
-#             print(f"\n\033[1;32;4mПоиск артикула: {article}\033[0m\n")
-#
-#             parser = YandexMarketParser(url='https://market.yandex.ru/',
-#                                         request=article,
-#                                         items=[article, 'Можно добавить что угодно'])
-#             parser.parse()
-#             parser.clear_terminal()
-#     except Exception as e:
-#         print('Ошибка при создании объекта парсинга')
 
 
